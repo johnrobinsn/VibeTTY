@@ -1,5 +1,17 @@
 [![Build Status](https://github.com/connectbot/connectbot/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/connectbot/connectbot/actions/workflows/ci.yml)
 
+> **Experimental Fork**
+>
+> This is an experimental fork of ConnectBot that adds virtual terminal width support and other enhancements:
+>
+> - **Virtual Terminal Width**: Render the terminal wider than the physical screen (e.g., 120 columns on a narrow phone) with single-finger horizontal panning
+> - **Toggle Keyboard/Title Bar**: Tap the terminal to toggle UI visibility instead of show-only
+> - **Long-press Text Selection**: Works correctly with horizontal pan offset
+>
+> See [NEW_FEATURES.md](NEW_FEATURES.md) for full details and implementation notes.
+>
+> This fork uses [johnrobinsn/termlib](https://github.com/johnrobinsn/termlib) via JitPack.
+
 # ConnectBot
 
 ConnectBot is a [Secure Shell](https://en.wikipedia.org/wiki/Secure_Shell)
