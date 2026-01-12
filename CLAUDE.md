@@ -99,3 +99,39 @@ Spotless enforces formatting:
 - Kotlin: ktlint with Android Studio code style
 - Gradle files: ktlint
 - Ratchet from `origin/main` (only changed files are checked)
+
+## Experimental Fork Notes
+
+This is johnrobinsn's experimental fork with virtual terminal width support.
+
+### Git Remotes
+Both connectbot and termlib repos use `fork` remote for pushing:
+```bash
+git push fork main  # NOT origin (which points to upstream)
+```
+
+### termlib Composite Build
+The termlib library is at `/mntc/code/termlib` and included via composite build in `settings.gradle.kts`.
+
+### Virtual Terminal Width Feature
+Allows terminal to render wider than physical screen with horizontal panning.
+
+**Key file:** `termlib/lib/src/main/java/org/connectbot/terminal/Terminal.kt`
+- Gesture handling: ~lines 790-1100
+- `virtualWidthColumns` parameter enables wider rendering
+- `horizontalPanOffset` state for pan position
+- `scrollGestureGeneration` tracks gesture lifecycle to prevent race conditions
+
+### Scroll Gesture Stability (Latest Fixes)
+Problems solved for TUI apps producing continuous output:
+1. **Generation tracking** - `scrollGestureGeneration` counter prevents stale fling completions
+2. **Capture maxScroll at scroll mode entry** - Prevents mid-gesture changes from TUI output
+3. **Vertical movement threshold** - 0.5px threshold prevents horizontal pan from affecting scroll
+4. **Horizontal auto-pan disabled** - TUIs park cursor at col 0, making cursor-based auto-pan unreliable
+
+### Debug Logging
+Terminal.kt has debug logging enabled (grep `Log.d("Terminal"`). Remove when stable.
+
+### Documentation
+- `NEW_FEATURES.md` - Detailed implementation notes and lessons learned
+- `CLAUDE_NOTES.md` - Additional session notes

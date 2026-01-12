@@ -199,4 +199,63 @@ coroutineScope.launch {
 
 ## TODO
 1. Test edge cases: rapid scrolling, zoom gestures, orientation changes
-2. Push commits to GitHub forks
+2. Remove debug logging from Terminal.kt when stable
+
+---
+
+# TUI Scroll Stability Fixes (January 2026)
+
+## Problem
+When running TUI applications (like claude code) that produce continuous output, horizontal panning while scrolled up in the buffer would cause the view to jump to the bottom.
+
+## Root Causes Identified
+
+1. **Stale fling completions** - Previous gesture's fling animation could complete during a new gesture, clearing `isUserScrolling` flag
+2. **Mid-gesture maxScroll changes** - TUI output changing scrollback size would cause `maxScroll` to change, and `coerceIn(0f, maxScroll)` would force scroll position to 0
+3. **LaunchedEffect re-triggering** - Effects keyed on `isUserScrolling` would re-run when gesture ended
+
+## Solutions Implemented
+
+### 1. Generation Tracking
+```kotlin
+var scrollGestureGeneration by remember { mutableStateOf(0) }
+
+// Increment when starting new scroll gesture
+scrollGestureGeneration++
+thisGestureGeneration = scrollGestureGeneration
+
+// Only clear flag if this is still current gesture
+if (gestureGen == scrollGestureGeneration) {
+    isUserScrolling = false
+}
+```
+
+### 2. Capture maxScroll at Scroll Mode Entry
+```kotlin
+// Capture when entering scroll mode (not at gesture start)
+gestureMaxScroll = screenState.snapshot.scrollback.size * baseCharHeight
+
+// Use throughout gesture
+currentScrollOffset = (currentScrollOffset + dragAmount.y).coerceIn(0f, gestureMaxScroll)
+```
+
+### 3. Vertical Movement Threshold
+```kotlin
+// Only update vertical scroll if meaningful movement
+if (kotlin.math.abs(dragAmount.y) > 0.5f) {
+    currentScrollOffset = ...
+}
+```
+
+### 4. Remove isUserScrolling from LaunchedEffect Keys
+Changed from:
+```kotlin
+LaunchedEffect(screenState.scrollbackPosition, isUserScrolling) { ... }
+```
+To:
+```kotlin
+LaunchedEffect(screenState.scrollbackPosition) { ... }
+```
+
+## Horizontal Auto-Pan Disabled
+TUI applications often park the terminal cursor at a fixed position (column 0) while rendering input text elsewhere using escape sequences. This makes cursor-based horizontal auto-pan unreliable. Users must manually pan horizontally using single-finger drag.
