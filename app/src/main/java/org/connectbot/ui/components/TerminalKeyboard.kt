@@ -178,6 +178,13 @@ private fun TerminalKeyboardContent(
         }
     }
 
+    // Reset interaction timer when user scrolls the keyboard panel
+    LaunchedEffect(scrollState.isScrollInProgress) {
+        if (scrollState.isScrollInProgress) {
+            onInteraction()
+        }
+    }
+
     Surface(
         modifier = modifier
             .pointerInput(Unit) {
