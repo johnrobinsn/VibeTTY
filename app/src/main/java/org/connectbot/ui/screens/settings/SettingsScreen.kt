@@ -167,6 +167,7 @@ fun SettingsScreen(
         onVolumeFontChange = viewModel::updateVolumeFont,
         onKeepAliveChange = viewModel::updateKeepAlive,
         onAlwaysVisibleChange = viewModel::updateAlwaysVisible,
+        onForceSoftKeyboardChange = viewModel::updateForceSoftKeyboard,
         onShiftFkeysChange = viewModel::updateShiftFkeys,
         onCtrlFkeysChange = viewModel::updateCtrlFkeys,
         onStickyModifiersChange = viewModel::updateStickyModifiers,
@@ -211,6 +212,7 @@ fun SettingsScreenContent(
     onVolumeFontChange: (Boolean) -> Unit,
     onKeepAliveChange: (Boolean) -> Unit,
     onAlwaysVisibleChange: (Boolean) -> Unit,
+    onForceSoftKeyboardChange: (Boolean) -> Unit,
     onShiftFkeysChange: (Boolean) -> Unit,
     onCtrlFkeysChange: (Boolean) -> Unit,
     onStickyModifiersChange: (String) -> Unit,
@@ -470,6 +472,15 @@ fun SettingsScreenContent(
                     summary = stringResource(R.string.pref_alwaysvisible_summary),
                     checked = uiState.alwaysvisible,
                     onCheckedChange = onAlwaysVisibleChange
+                )
+            }
+
+            item {
+                SwitchPreference(
+                    title = stringResource(R.string.pref_forcesoftkeyboard_title),
+                    summary = stringResource(R.string.pref_forcesoftkeyboard_summary),
+                    checked = uiState.forceSoftKeyboard,
+                    onCheckedChange = onForceSoftKeyboardChange
                 )
             }
 
@@ -1477,6 +1488,7 @@ private fun SettingsScreenPreview() {
             onVolumeFontChange = {},
             onKeepAliveChange = {},
             onAlwaysVisibleChange = {},
+            onForceSoftKeyboardChange = {},
             onShiftFkeysChange = {},
             onCtrlFkeysChange = {},
             onStickyModifiersChange = {},

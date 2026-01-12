@@ -56,6 +56,7 @@ data class SettingsUiState(
     val volumefont: Boolean = true,
     val keepalive: Boolean = true,
     val alwaysvisible: Boolean = false,
+    val forceSoftKeyboard: Boolean = false,
     val shiftfkeys: Boolean = false,
     val ctrlfkeys: Boolean = false,
     val stickymodifiers: String = "no",
@@ -145,6 +146,10 @@ class SettingsViewModel @Inject constructor(
             volumefont = prefs.getBoolean("volumefont", true),
             keepalive = prefs.getBoolean("keepalive", true),
             alwaysvisible = prefs.getBoolean("alwaysvisible", false),
+            forceSoftKeyboard = prefs.getBoolean(
+                PreferenceConstants.FORCE_SOFT_KEYBOARD,
+                PreferenceConstants.FORCE_SOFT_KEYBOARD_DEFAULT
+            ),
             shiftfkeys = prefs.getBoolean("shiftfkeys", false),
             ctrlfkeys = prefs.getBoolean("ctrlfkeys", false),
             stickymodifiers = prefs.getString("stickymodifiers", "no") ?: "no",
@@ -262,6 +267,12 @@ class SettingsViewModel @Inject constructor(
 
     fun updateAlwaysVisible(value: Boolean) {
         updateBooleanPref("alwaysvisible", value) { copy(alwaysvisible = value) }
+    }
+
+    fun updateForceSoftKeyboard(value: Boolean) {
+        updateBooleanPref(PreferenceConstants.FORCE_SOFT_KEYBOARD, value) {
+            copy(forceSoftKeyboard = value)
+        }
     }
 
     fun updateShiftFkeys(value: Boolean) {

@@ -115,8 +115,9 @@ import org.connectbot.util.rememberTerminalTypefaceResultFromStoredValue
 import timber.log.Timber
 
 /**
- * Check if a hardware keyboard is currently attached to the device.
+ * Check if a hardware keyboard is currently attached and available.
  * Detects QWERTY and 12-key hardware keyboards, including Bluetooth keyboards.
+ * Returns false for paired-but-not-connected Bluetooth keyboards.
  */
 @Composable
 private fun rememberHasHardwareKeyboard(): Boolean {
@@ -124,8 +125,12 @@ private fun rememberHasHardwareKeyboard(): Boolean {
 
     return remember(configuration) {
         val keyboardType = configuration.keyboard
-        keyboardType == android.content.res.Configuration.KEYBOARD_QWERTY ||
+        val hasKeyboardType = keyboardType == android.content.res.Configuration.KEYBOARD_QWERTY ||
             keyboardType == android.content.res.Configuration.KEYBOARD_12KEY
+        // hardKeyboardHidden tells us if the keyboard is actually connected/available
+        val isKeyboardAvailable = configuration.hardKeyboardHidden ==
+            android.content.res.Configuration.HARDKEYBOARDHIDDEN_NO
+        hasKeyboardType && isKeyboardAvailable
     }
 }
 
@@ -167,7 +172,14 @@ fun ConsoleScreen(
 
     // Keyboard state
     val hasHardwareKeyboard = rememberHasHardwareKeyboard()
-    var showSoftwareKeyboard by remember { mutableStateOf(!hasHardwareKeyboard) }
+    val forceSoftKeyboard = remember {
+        prefs.getBoolean(
+            PreferenceConstants.FORCE_SOFT_KEYBOARD,
+            PreferenceConstants.FORCE_SOFT_KEYBOARD_DEFAULT
+        )
+    }
+    // Show keyboard if no hardware keyboard connected, or if force option is enabled
+    var showSoftwareKeyboard by remember { mutableStateOf(!hasHardwareKeyboard || forceSoftKeyboard) }
 
     // Orientation tracking for font size
     val configuration = LocalConfiguration.current
@@ -231,11 +243,15 @@ fun ConsoleScreen(
     val systemImeVisible = imeHeight > 0.dp
 
     // Sync our state when user dismisses IME externally (back button)
+    // Track previous IME state to detect actual dismissal vs initial load
+    var wasImeVisible by remember { mutableStateOf(false) }
     LaunchedEffect(systemImeVisible) {
-        // If system says IME is hidden but we think we should show it, update our state
-        if (!systemImeVisible && showSoftwareKeyboard) {
+        // Only reset showSoftwareKeyboard when IME was visible and is now hidden
+        // This prevents resetting on initial load before IME has a chance to show
+        if (wasImeVisible && !systemImeVisible && showSoftwareKeyboard) {
             showSoftwareKeyboard = false
         }
+        wasImeVisible = systemImeVisible
         imeVisible = systemImeVisible
     }
 

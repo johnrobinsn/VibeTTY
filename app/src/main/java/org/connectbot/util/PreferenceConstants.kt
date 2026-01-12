@@ -39,6 +39,8 @@ object PreferenceConstants {
 
     const val KEYMODE: String = "keymode"
     const val KEY_ALWAYS_VISIBLE: String = "alwaysvisible"
+    const val FORCE_SOFT_KEYBOARD: String = "forcesoftkeyboard"
+    const val FORCE_SOFT_KEYBOARD_DEFAULT: Boolean = false
 
     const val KEYMODE_RIGHT: String = "Use right-side keys"
     const val KEYMODE_LEFT: String = "Use left-side keys"

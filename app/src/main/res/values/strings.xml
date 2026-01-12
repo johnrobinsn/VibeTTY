@@ -1221,6 +1221,10 @@
 	<string name="pref_default_profile_none">None (use host settings)</string>
 	<!-- Summary text for special keys always visible setting -->
 	<string name="pref_alwaysvisible_summary">Keep special keys always visible</string>
+	<!-- Title for force soft keyboard setting -->
+	<string name="pref_forcesoftkeyboard_title">Force software keyboard</string>
+	<!-- Summary text for force soft keyboard setting -->
+	<string name="pref_forcesoftkeyboard_summary">Show software keyboard even when hardware keyboard is connected</string>
 	<!-- Title for custom terminal types preference -->
 	<string name="pref_customterminal_title">Custom Terminal Types</string>
 	<!-- Summary for custom terminal types preference -->
