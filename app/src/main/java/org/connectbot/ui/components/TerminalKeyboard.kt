@@ -55,6 +55,8 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -72,7 +74,7 @@ import org.connectbot.service.TerminalBridge
 import org.connectbot.service.TerminalKeyListener
 import org.connectbot.terminal.VTermKey
 
-private const val UI_OPACITY = 0.5f
+private const val UI_OPACITY = 1.0f
 
 /**
  * Height of the virtual keyboard keys in dp.
@@ -185,8 +187,18 @@ private fun TerminalKeyboardContent(
         }
     }
 
+    val borderColor = MaterialTheme.colorScheme.outline
     Surface(
         modifier = modifier
+            .drawBehind {
+                // Draw top border line
+                drawLine(
+                    color = borderColor,
+                    start = Offset(0f, 0f),
+                    end = Offset(size.width, 0f),
+                    strokeWidth = 1.dp.toPx()
+                )
+            }
             .pointerInput(Unit) {
                 // Reset timer on any touch interaction
                 detectTapGestures(
@@ -506,8 +518,8 @@ private fun RepeatableKeyButton(
     }
 
     val backgroundColor =
-        if (isPressed) MaterialTheme.colorScheme.primaryContainer.copy(alpha = UI_OPACITY)
-        else MaterialTheme.colorScheme.surface.copy(alpha = UI_OPACITY)
+        if (isPressed) MaterialTheme.colorScheme.primaryContainer
+        else MaterialTheme.colorScheme.surface
 
     KeyButton(
         icon = icon,
@@ -549,9 +561,9 @@ private fun ModifierKeyButton(
     modifier: Modifier = Modifier
 ) {
     val backgroundColor = when (modifierLevel) {
-        ModifierLevel.OFF -> MaterialTheme.colorScheme.surface.copy(alpha = UI_OPACITY)
-        ModifierLevel.TRANSIENT -> MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.7f)
-        ModifierLevel.LOCKED -> MaterialTheme.colorScheme.primary.copy(alpha = 0.8f)
+        ModifierLevel.OFF -> MaterialTheme.colorScheme.surface
+        ModifierLevel.TRANSIENT -> MaterialTheme.colorScheme.primaryContainer
+        ModifierLevel.LOCKED -> MaterialTheme.colorScheme.primary
     }
 
     val textColor = when (modifierLevel) {
