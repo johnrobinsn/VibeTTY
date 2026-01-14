@@ -471,7 +471,7 @@ fun ConsoleScreen(
                             },
                             // Virtual width: only enable when not using forced size
                             virtualWidthColumns = if (virtualWidthEnabled && forceSize == null) virtualWidthColumns else null,
-                            horizontalScrollIndicatorBottomOffset = if (keyboardAlwaysVisible) TERMINAL_KEYBOARD_HEIGHT_DP.dp else 0.dp
+                            horizontalScrollIndicatorBottomOffset = 0.dp
                         )
 
                         // Set up text input request callback from bridge (for camera button)
