@@ -1,0 +1,39 @@
+services:
+  vibetty-test-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: vibetty-test
+    ports:
+      - "2222:22"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "nc", "-z", "localhost", "22"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    environment:
+      - TERM=xterm-256color
+
+# Usage:
+#
+# Start the test server:
+#   docker-compose up -d
+#
+# Connect from Android emulator:
+#   Host: 10.0.2.2 (emulator's host loopback)
+#   Port: 2222
+#   User: testuser
+#   Password: testpass
+#
+# Connect from local machine:
+#   ssh -p 2222 testuser@localhost
+#
+# Run a test script:
+#   ssh -p 2222 testuser@localhost ~/test-scripts/shift-enter-test.sh
+#
+# Stop the server:
+#   docker-compose down
+#
+# Rebuild after changes:
+#   docker-compose up -d --build
