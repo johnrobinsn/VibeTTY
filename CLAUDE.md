@@ -100,14 +100,18 @@ Spotless enforces formatting:
 - Gradle files: ktlint
 - Ratchet from `origin/main` (only changed files are checked)
 
-## Experimental Fork Notes
+## VibeDroid Fork Notes
 
-This is johnrobinsn's experimental fork with virtual terminal width support.
+This is **VibeDroid**, johnrobinsn's fork of ConnectBot focused on "vibe coding" - AI-assisted development on mobile.
 
 ### Git Remotes
-Both connectbot and termlib repos use `fork` remote for pushing:
 ```bash
-git push fork main  # NOT origin (which points to upstream)
+# Push to VibeDroid repo (NOT origin which points to upstream ConnectBot)
+git push fork main
+
+# Remote URLs:
+# fork  -> https://github.com/johnrobinsn/VibeDroid.git
+# origin -> https://github.com/connectbot/connectbot.git (upstream)
 ```
 
 ### termlib Composite Build
@@ -132,6 +136,38 @@ Problems solved for TUI apps producing continuous output:
 ### Debug Logging
 Terminal.kt has debug logging enabled (grep `Log.d("Terminal"`). Remove when stable.
 
+### App Branding
+- **App name**: "VibeDroid" (defined in `res/values/notrans.xml`)
+- **Icon**: Cyan "V" with vibe waves + pink cursor on dark background
+  - Vector drawables in `res/drawable/ic_launcher_*.xml`
+  - Adaptive icon in `res/mipmap-anydpi-v26/icon.xml`
+  - **Note**: easylauncher plugin caches icons - use `--no-build-cache` and delete `app/build/` if icon changes don't appear
+- **PNG fallbacks** in `res/mipmap-*/icon.png` are still old ConnectBot icons (only used on Android 7.1 and below)
+
+### Recent Fixes (Jan 2025)
+
+#### Hardware Keyboard Detection
+- **Problem**: Paired but not connected Bluetooth keyboards were detected as "connected"
+- **Fix**: Check `configuration.hardKeyboardHidden` in addition to `configuration.keyboard`
+- **File**: `ConsoleScreen.kt` - `rememberHasHardwareKeyboard()`
+
+#### Force Soft Keyboard Option
+- **Setting**: Settings → Keyboard → "Force software keyboard"
+- **Purpose**: Show soft keyboard even when hardware keyboard is detected
+- **Files**: `PreferenceConstants.kt`, `SettingsViewModel.kt`, `SettingsScreen.kt`, `ConsoleScreen.kt`
+
+#### IME Visibility on Connect
+- **Problem**: Soft keyboard wasn't showing when connecting to host
+- **Cause**: LaunchedEffect was resetting `showSoftwareKeyboard` to false on initial load before IME could appear
+- **Fix**: Track `wasImeVisible` state to only reset when IME was actually dismissed by user
+- **File**: `ConsoleScreen.kt` lines ~245-256
+
+#### Modifier Panel Auto-hide During Scroll
+- **Problem**: Modifier panel disappeared while user was scrolling it horizontally
+- **Fix**: Added LaunchedEffect to call `onInteraction()` when `scrollState.isScrollInProgress`
+- **File**: `TerminalKeyboard.kt` lines ~181-186
+
 ### Documentation
 - `NEW_FEATURES.md` - Detailed implementation notes and lessons learned
 - `CLAUDE_NOTES.md` - Additional session notes
+- `README.md` - VibeDroid overview with ConnectBot attribution
