@@ -19,6 +19,7 @@ package org.connectbot.transport
 
 import android.content.Context
 import android.net.Uri
+import org.connectbot.util.TerminalIOLogger
 import timber.log.Timber
 import com.trilead.ssh2.AuthAgentCallback
 import com.trilead.ssh2.ChannelCondition
@@ -923,11 +924,13 @@ class SSH : AbsTransport, ConnectionMonitor, InteractiveCallback, AuthAgentCallb
 
     @Throws(IOException::class)
     override fun write(buffer: ByteArray) {
+        TerminalIOLogger.logSent(buffer)
         stdin?.write(buffer)
     }
 
     @Throws(IOException::class)
     override fun write(c: Int) {
+        TerminalIOLogger.logSent(c)
         stdin?.write(c)
     }
 

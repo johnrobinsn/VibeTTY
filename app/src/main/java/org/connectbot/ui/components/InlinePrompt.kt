@@ -64,6 +64,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontFamily
@@ -75,6 +76,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.connectbot.R
 import org.connectbot.service.DisconnectAction
+import org.connectbot.ui.TestTags
 import org.connectbot.service.PromptRequest
 import org.connectbot.service.PromptResponse
 import org.connectbot.ui.theme.terminal
@@ -194,12 +196,17 @@ private fun BooleanPromptContent(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.End
         ) {
-            TextButton(onClick = onNo) {
+            TextButton(
+                onClick = onNo,
+                modifier = Modifier.testTag(TestTags.Prompt.BUTTON_NO)
+            ) {
                 Text(stringResource(R.string.button_no), color = terminalColors.overlayText)
             }
             Button(
                 onClick = onYes,
-                modifier = Modifier.padding(start = 8.dp)
+                modifier = Modifier
+                    .padding(start = 8.dp)
+                    .testTag(TestTags.Prompt.BUTTON_YES)
             ) {
                 Text(stringResource(R.string.button_yes))
             }
@@ -243,15 +250,23 @@ private fun DisconnectPromptContent(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.End
         ) {
-            TextButton(onClick = onStay) {
+            TextButton(
+                onClick = onStay,
+                modifier = Modifier.testTag(TestTags.Prompt.BUTTON_STAY)
+            ) {
                 Text(stringResource(R.string.button_stay), color = terminalColors.overlayText)
             }
-            TextButton(onClick = onReconnect) {
+            TextButton(
+                onClick = onReconnect,
+                modifier = Modifier.testTag(TestTags.Prompt.BUTTON_RECONNECT)
+            ) {
                 Text(stringResource(R.string.button_reconnect), color = terminalColors.overlayText)
             }
             Button(
                 onClick = onClose,
-                modifier = Modifier.padding(start = 8.dp)
+                modifier = Modifier
+                    .padding(start = 8.dp)
+                    .testTag(TestTags.Prompt.BUTTON_CLOSE)
             ) {
                 Text(stringResource(R.string.button_close))
             }
@@ -317,6 +332,7 @@ private fun StringPromptContent(
             modifier = Modifier
                 .fillMaxWidth()
                 .focusRequester(focusRequester)
+                .testTag(if (isPassword) TestTags.Prompt.FIELD_PASSWORD else TestTags.Prompt.FIELD_RESPONSE)
         )
 
         Row(
@@ -325,12 +341,17 @@ private fun StringPromptContent(
                 .padding(top = 8.dp),
             horizontalArrangement = Arrangement.End
         ) {
-            TextButton(onClick = onCancel) {
+            TextButton(
+                onClick = onCancel,
+                modifier = Modifier.testTag(TestTags.Prompt.BUTTON_CANCEL)
+            ) {
                 Text(stringResource(R.string.delete_neg), color = terminalColors.overlayText)
             }
             Button(
                 onClick = { onSubmit(text) },
-                modifier = Modifier.padding(start = 8.dp)
+                modifier = Modifier
+                    .padding(start = 8.dp)
+                    .testTag(TestTags.Prompt.BUTTON_OK)
             ) {
                 Text(stringResource(R.string.button_ok))
             }
@@ -481,12 +502,17 @@ private fun HostKeyFingerprintPromptContent(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.End
         ) {
-            TextButton(onClick = onReject) {
+            TextButton(
+                onClick = onReject,
+                modifier = Modifier.testTag(TestTags.Prompt.BUTTON_NO)
+            ) {
                 Text(stringResource(R.string.button_no), color = terminalColors.overlayText)
             }
             Button(
                 onClick = onAccept,
-                modifier = Modifier.padding(start = 8.dp)
+                modifier = Modifier
+                    .padding(start = 8.dp)
+                    .testTag(TestTags.Prompt.BUTTON_YES)
             ) {
                 Text(stringResource(R.string.button_yes))
             }

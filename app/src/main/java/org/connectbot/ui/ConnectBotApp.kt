@@ -17,10 +17,14 @@
 
 package org.connectbot.ui
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.compositionLocalOf
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.navigation.NavHostController
 import org.connectbot.data.entity.Host
 import org.connectbot.service.TerminalManager
@@ -32,6 +36,7 @@ val LocalTerminalManager = compositionLocalOf<TerminalManager?> {
     null
 }
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun ConnectBotApp(
     appUiState: AppUiState,
@@ -43,7 +48,9 @@ fun ConnectBotApp(
     modifier: Modifier = Modifier,
 ) {
     ConnectBotTheme {
-        when (appUiState) {
+        // Enable testTags to appear as resource-id in UI Automator dumps
+        Box(modifier = Modifier.semantics { testTagsAsResourceId = true }) {
+            when (appUiState) {
             is AppUiState.Loading -> {
                 LoadingScreen(modifier = modifier)
             }
@@ -78,6 +85,7 @@ fun ConnectBotApp(
                         modifier = modifier
                     )
                 }
+            }
             }
         }
     }

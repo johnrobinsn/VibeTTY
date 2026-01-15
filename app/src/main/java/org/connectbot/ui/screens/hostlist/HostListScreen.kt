@@ -73,6 +73,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -83,6 +84,7 @@ import kotlinx.coroutines.launch
 import org.connectbot.R
 import org.connectbot.data.entity.Host
 import org.connectbot.ui.LocalTerminalManager
+import org.connectbot.ui.TestTags
 import org.connectbot.ui.ScreenPreviews
 import org.connectbot.ui.components.DisconnectAllDialog
 import org.connectbot.ui.theme.ConnectBotTheme
@@ -271,7 +273,10 @@ fun HostListScreenContent(
                 title = { Text(stringResource(R.string.app_name)) },
                 actions = {
                     if (!makingShortcut) {
-                        IconButton(onClick = { showMenu = true }) {
+                        IconButton(
+                            onClick = { showMenu = true },
+                            modifier = Modifier.testTag(TestTags.HostList.MENU_OPTIONS)
+                        ) {
                             Icon(Icons.Default.MoreVert, contentDescription = stringResource(R.string.button_more_options))
                         }
                         DropdownMenu(
@@ -288,14 +293,16 @@ fun HostListScreenContent(
                                 onClick = {
                                     showMenu = false
                                     onToggleSortOrder()
-                                }
+                                },
+                                modifier = Modifier.testTag(TestTags.HostList.MENU_SORT)
                             )
                             DropdownMenuItem(
                                 text = { Text(stringResource(R.string.list_menu_settings)) },
                                 onClick = {
                                     showMenu = false
                                     onNavigateToSettings()
-                                }
+                                },
+                                modifier = Modifier.testTag(TestTags.HostList.MENU_SETTINGS)
                             )
                             DropdownMenuItem(
                                 text = { Text(stringResource(R.string.title_colors)) },
@@ -356,7 +363,9 @@ fun HostListScreenContent(
                 FloatingActionButton(
                     onClick = { onNavigateToEditHost(null) },
                     // This matches the FloatingActionButtonMenu padding
-                    modifier = Modifier.padding(end = 16.dp, bottom = 16.dp),
+                    modifier = Modifier
+                        .padding(end = 16.dp, bottom = 16.dp)
+                        .testTag(TestTags.HostList.FAB_ADD),
                 ) {
                     Icon(Icons.Default.Add, contentDescription = stringResource(R.string.hostpref_add_host))
                 }
@@ -544,7 +553,10 @@ private fun HostListItem(
         trailingContent = {
             if (!makingShortcut) {
                 Box {
-                    IconButton(onClick = { showMenu = true }) {
+                    IconButton(
+                        onClick = { showMenu = true },
+                        modifier = Modifier.testTag(TestTags.HostList.itemMenu(host.id))
+                    ) {
                         Icon(Icons.Default.MoreVert, contentDescription = stringResource(R.string.button_host_options))
                     }
                     DropdownMenu(
@@ -608,7 +620,9 @@ private fun HostListItem(
                 }
             }
         },
-        modifier = modifier.clickable(onClick = onClick)
+        modifier = modifier
+            .testTag(TestTags.HostList.item(host.id))
+            .clickable(onClick = onClick)
     )
     HorizontalDivider()
 
@@ -660,13 +674,17 @@ private fun HostDeleteDialog(
         },
         confirmButton = {
             TextButton(
-                onClick = onConfirm
+                onClick = onConfirm,
+                modifier = Modifier.testTag(TestTags.Dialog.BUTTON_CONFIRM)
             ) {
                 Text(stringResource(R.string.button_yes))
             }
         },
         dismissButton = {
-            TextButton(onClick = onDismiss) {
+            TextButton(
+                onClick = onDismiss,
+                modifier = Modifier.testTag(TestTags.Dialog.BUTTON_DISMISS)
+            ) {
                 Text(stringResource(R.string.button_no))
             }
         }

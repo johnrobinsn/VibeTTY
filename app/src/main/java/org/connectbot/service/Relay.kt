@@ -22,6 +22,7 @@ import kotlinx.coroutines.withContext
 import org.apache.harmony.niochar.charset.additional.IBM437
 import org.connectbot.di.CoroutineDispatchers
 import org.connectbot.transport.AbsTransport
+import org.connectbot.util.TerminalIOLogger
 import timber.log.Timber
 import java.io.IOException
 import java.nio.ByteBuffer
@@ -124,6 +125,10 @@ class Relay(
                 if (bytesRead == -1) {
                     endOfInput = true
                 } else {
+                    // Log received data for debugging
+                    if (bytesRead > 0) {
+                        TerminalIOLogger.logReceived(sourceBuffer.array(), offset, bytesRead)
+                    }
                     // Advance position to reflect new data
                     sourceBuffer.position(offset + bytesRead)
                 }

@@ -67,6 +67,7 @@ import org.connectbot.data.entity.Host
 import org.connectbot.data.entity.Profile
 import org.connectbot.data.entity.Pubkey
 import org.connectbot.ui.ScreenPreviews
+import org.connectbot.ui.TestTags
 import org.connectbot.ui.common.getIconColors
 import org.connectbot.ui.common.getLocalizedColorSchemeDescription
 import org.connectbot.ui.common.getLocalizedFontDisplayName
@@ -160,7 +161,7 @@ fun HostEditorScreenContent(
                             onSaveHost(expandedMode)
                             onNavigateBack()
                         },
-                        modifier = Modifier.testTag("add_host_button"),
+                        modifier = Modifier.testTag(TestTags.HostEditor.BUTTON_SAVE),
                         enabled = if (expandedMode) {
                             // For local protocol, hostname can be blank
                             uiState.protocol == "local" || uiState.hostname.isNotBlank()
@@ -191,7 +192,9 @@ fun HostEditorScreenContent(
                     label = { Text(stringResource(R.string.host_editor_quick_connect_label)) },
                     placeholder = { Text(stringResource(R.string.host_editor_quick_connect_placeholder)) },
                     supportingText = { Text(stringResource(R.string.host_editor_quick_connect_example)) },
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .testTag(TestTags.HostEditor.FIELD_QUICKCONNECT),
                     singleLine = true
                 )
 
@@ -219,7 +222,9 @@ fun HostEditorScreenContent(
                     value = uiState.nickname,
                     onValueChange = onNicknameChange,
                     label = { Text(stringResource(R.string.hostpref_nickname_title)) },
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .testTag(TestTags.HostEditor.FIELD_NICKNAME),
                     singleLine = true
                 )
 
@@ -296,7 +301,8 @@ fun HostEditorScreenContent(
                         label = { Text(stringResource(R.string.hostpref_username_title)) },
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(top = 8.dp),
+                            .padding(top = 8.dp)
+                            .testTag(TestTags.HostEditor.FIELD_USERNAME),
                         singleLine = true
                     )
 
@@ -307,7 +313,8 @@ fun HostEditorScreenContent(
                         isError = uiState.hostname.isBlank(),
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(top = 8.dp),
+                            .padding(top = 8.dp)
+                            .testTag(TestTags.HostEditor.FIELD_HOSTNAME),
                         singleLine = true
                     )
 
@@ -317,7 +324,8 @@ fun HostEditorScreenContent(
                         label = { Text(stringResource(R.string.hostpref_port_title)) },
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(top = 8.dp),
+                            .padding(top = 8.dp)
+                            .testTag(TestTags.HostEditor.FIELD_PORT),
                         singleLine = true
                     )
                 }

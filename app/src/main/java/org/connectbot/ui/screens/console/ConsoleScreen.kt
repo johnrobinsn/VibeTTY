@@ -86,6 +86,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -104,6 +105,7 @@ import org.connectbot.service.PromptRequest
 import org.connectbot.terminal.Terminal
 import org.connectbot.ui.LoadingScreen
 import org.connectbot.ui.LocalTerminalManager
+import org.connectbot.ui.TestTags
 import org.connectbot.ui.components.FloatingTextInputDialog
 import org.connectbot.ui.components.InlinePrompt
 import org.connectbot.ui.components.ResizeDialog
@@ -605,7 +607,10 @@ fun ConsoleScreen(
                     titleBarHeight = with(density) { it.height.toDp() }
                 },
                 navigationIcon = {
-                    IconButton(onClick = onNavigateBack) {
+                    IconButton(
+                        onClick = onNavigateBack,
+                        modifier = Modifier.testTag(TestTags.Console.BUTTON_BACK)
+                    ) {
                         Icon(
                             Icons.AutoMirrored.Filled.ArrowBack,
                             stringResource(R.string.button_back)
@@ -625,7 +630,8 @@ fun ConsoleScreen(
                     // Text Input button
                     IconButton(
                         onClick = { showTextInputDialog = true },
-                        enabled = currentBridge != null
+                        enabled = currentBridge != null,
+                        modifier = Modifier.testTag(TestTags.Console.BUTTON_INPUT)
                     ) {
                         Icon(
                             Icons.Default.Edit,
@@ -644,7 +650,8 @@ fun ConsoleScreen(
                                 bridge.injectString(clip)
                             }
                         },
-                        enabled = currentBridge != null
+                        enabled = currentBridge != null,
+                        modifier = Modifier.testTag(TestTags.Console.BUTTON_PASTE)
                     ) {
                         Icon(
                             Icons.Default.ContentPaste,
@@ -654,11 +661,14 @@ fun ConsoleScreen(
 
                     // More menu
                     Box {
-                        IconButton(onClick = {
-                            // Refresh menu state to update enabled/disabled items
-                            viewModel.refreshMenuState()
-                            showMenu = true
-                        }) {
+                        IconButton(
+                            onClick = {
+                                // Refresh menu state to update enabled/disabled items
+                                viewModel.refreshMenuState()
+                                showMenu = true
+                            },
+                            modifier = Modifier.testTag(TestTags.Console.BUTTON_MENU)
+                        ) {
                             Icon(
                                 Icons.Default.MoreVert,
                                 contentDescription = stringResource(R.string.button_more_options)
@@ -693,7 +703,8 @@ fun ConsoleScreen(
                                 enabled = currentBridge != null,
                                 leadingIcon = {
                                     Icon(Icons.Default.LinkOff, null)
-                                }
+                                },
+                                modifier = Modifier.testTag(TestTags.Console.MENU_DISCONNECT)
                             )
 
                             // URL Scan
