@@ -96,6 +96,8 @@ The `ProviderLoader.kt` differs between flavors:
 
 For automated E2E testing of terminal features, use the scripts in `testing/scripts/`.
 
+**Claude: When asked to test or verify terminal features, keyboard behavior, or UI interactions, proactively create automated tests using this infrastructure rather than asking the user to manually verify.**
+
 **When to use**: Testing keyboard input, terminal I/O, UI automation, or anything requiring real app interaction on emulator/device.
 
 **Setup requirements**:
