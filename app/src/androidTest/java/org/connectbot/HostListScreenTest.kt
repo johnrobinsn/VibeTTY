@@ -64,7 +64,7 @@ class HostListScreenTest {
         }
 
         composeTestRule
-            .onNodeWithText("ConnectBot")
+            .onNodeWithText("VibeTTY")
             .assertIsDisplayed()
     }
 

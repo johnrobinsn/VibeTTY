@@ -94,7 +94,7 @@ class HostEditorScreenTest {
         navigateToHostEditorScreen(-1L)
 
         composeTestRule
-            .onNodeWithTag("add_host_button")
+            .onNodeWithTag("hosteditor_button_save")
             .assertIsDisplayed()
     }
 
@@ -106,7 +106,7 @@ class HostEditorScreenTest {
         // There are two "Add Host" texts - one in title, one in button
         // We need to find the button specifically
         composeTestRule
-            .onNodeWithTag("add_host_button")
+            .onNodeWithTag("hosteditor_button_save")
             .assertIsNotEnabled()
     }
 
@@ -125,7 +125,7 @@ class HostEditorScreenTest {
 
         // The save button should now be enabled
         composeTestRule
-            .onNodeWithTag("add_host_button")
+            .onNodeWithTag("hosteditor_button_save")
             .assertIsEnabled()
     }
 
@@ -143,7 +143,7 @@ class HostEditorScreenTest {
 
         // Click save button (the second "Add Host" text)
         composeTestRule
-            .onNodeWithTag("add_host_button")
+            .onNodeWithTag("hosteditor_button_save")
             .performClick()
 
         // Verify navigateBack was called (by checking if the navController popped back to start)
@@ -228,7 +228,7 @@ class HostEditorScreenTest {
 
         // Save button should be disabled initially (no hostname entered)
         composeTestRule
-            .onNodeWithTag("add_host_button")
+            .onNodeWithTag("hosteditor_button_save")
             .assertIsNotEnabled()
 
         // Click on protocol dropdown
@@ -248,7 +248,7 @@ class HostEditorScreenTest {
         // Now save button should be enabled even without hostname
         // because local protocol doesn't require hostname
         composeTestRule
-            .onNodeWithTag("add_host_button")
+            .onNodeWithTag("hosteditor_button_save")
             .assertIsEnabled()
     }
 }
