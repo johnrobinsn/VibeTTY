@@ -27,6 +27,13 @@ jobs:
           fetch-depth: 0
           fetch-tags: true
 
+      - name: Checkout termlib (composite build dependency)
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        with:
+          repository: johnrobinsn/vibetty-termlib
+          path: ../termlib
+          ref: main
+
       - name: Validate Gradle Wrapper
         uses: gradle/actions/wrapper-validation@4d9f0ba0025fe599b4ebab900eb7f3a1d93ef4c2 # v5.0.0
 
