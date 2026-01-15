@@ -135,32 +135,38 @@ VibeTTY exposes testTags for UI automation via UIAutomator:
 - `prompt_field_password` - Password input field
 - `prompt_field_response` - General response input field
 
-## Known Limitations
+## ADB Keyboard Input
 
-### ADB Keyboard Input
+### Sending Key Combinations
 
-ADB keyboard input has limitations with modifier keys:
+Use `input keycombination` (Android 12+) to send modifier key combinations:
 
-1. **`input keyevent`**: Sends individual key events but modifiers don't combine properly with other keys.
+```bash
+# Send Shift+Enter
+adb shell input keycombination KEYCODE_SHIFT_LEFT KEYCODE_ENTER
 
-2. **`input keycombination`**: Available on Android 12+ but doesn't reliably send key combinations through the soft keyboard to apps.
+# Send Ctrl+C
+adb shell input keycombination KEYCODE_CTRL_LEFT KEYCODE_C
+```
 
-3. **`input text`**: Only works for printable characters, cannot send control characters or escape sequences.
+This works correctly with VibeTTY - Shift+Enter sends `ESC[13;2u` (Kitty protocol).
 
-**Workaround**: For testing keyboard protocol features like Shift+Enter:
-- Use manual testing with the soft keyboard
-- Write UIAutomator instrumented tests that can inject proper KeyEvents with modifiers
-- Use the terminal I/O logging to verify correct sequences are sent
+### Other Input Methods
 
-### Testing Shift+Enter
+- **`input keyevent`**: Individual key events only
+- **`input text`**: Printable characters only, no control characters
 
-To manually test Shift+Enter:
+### Automated Shift+Enter Testing
 
-1. Enable terminal I/O logging: `adb shell setprop debug.vibetty.terminal_io true`
-2. Connect to an SSH session
-3. Run `cat -v` or `~/test-scripts/verify-shift-enter.sh`
-4. Press Shift+Enter on the soft keyboard
-5. Check logcat for the sequence sent:
-   - Correct (Kitty): `ESC[13;2u`
-   - Correct (modifyOtherKeys): `ESC[27;2;13~`
-   - Failure: Just `^M` (Enter without modifier)
+```bash
+# 1. Enable terminal I/O logging
+adb shell setprop debug.vibetty.terminal_io true
+
+# 2. Connect to SSH and run cat -v
+# 3. Send Shift+Enter via ADB
+adb shell input keycombination KEYCODE_SHIFT_LEFT KEYCODE_ENTER
+
+# 4. Check logcat for the sequence sent
+adb logcat -s TerminalIO:V
+# Expected: SEND readable: ESC[13;2u
+```
