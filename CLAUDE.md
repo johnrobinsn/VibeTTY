@@ -92,6 +92,52 @@ The `ProviderLoader.kt` differs between flavors:
 - AssertJ assertions preferred over JUnit assertions
 - Instrumented tests use Hilt test runner (`HiltTestRunner`)
 
+### ADB Test Infrastructure
+
+For automated E2E testing of terminal features, use the scripts in `testing/scripts/`.
+
+**When to use**: Testing keyboard input, terminal I/O, UI automation, or anything requiring real app interaction on emulator/device.
+
+**Setup requirements**:
+- Android emulator or device connected via ADB
+- Docker SSH server running: `cd testing/docker && docker compose up -d`
+- App installed with debug build
+
+**Key files**:
+- `testing/scripts/lib/adb-helpers.sh` - Reusable ADB automation functions
+- `testing/scripts/test-shift-enter.sh` - Example test script
+
+**Usage**:
+```bash
+# Source the helpers
+source testing/scripts/lib/adb-helpers.sh
+
+# Type text directly to terminal (taps to focus, then input text)
+type_to_terminal "cat -v"
+press_enter
+
+# Send key combinations (Android 12+ keycombination)
+send_ctrl_c      # Ctrl+C
+send_ctrl_l      # Ctrl+L (clear)
+send_shift_enter # Shift+Enter
+
+# Capture and verify terminal I/O
+start_log_capture
+send_shift_enter
+sleep 0.3
+get_send_logs    # What app sent to SSH
+get_recv_logs    # What server echoed back
+
+# UI automation
+tap_by_tag "hostlist_item_1"
+wait_for_tag "console_button_input" 5
+connect_to_host "hostlist_item_1" "password"
+```
+
+**Key discovery**: `adb shell input text` works with the terminal when `ImeInputView` has focus. The `type_to_terminal()` function taps the terminal area first to ensure focus.
+
+**Terminal I/O logging**: Enable with `adb shell setprop debug.vibetty.terminal_io true`. Logs show exact bytes sent/received via TerminalIO tag in logcat.
+
 ## Code Style
 
 Spotless enforces formatting:
