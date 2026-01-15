@@ -7,9 +7,15 @@ pluginManagement {
     }
 }
 
-// Composite build: use local termlib if available (for development)
-if (file("../termlib").exists()) {
-    includeBuild("../termlib") {
+// Composite build: use local termlib if available (for development or CI)
+// Check both ../termlib (local dev) and ./termlib (CI workspace)
+val termlibPath = when {
+    file("../termlib").exists() -> "../termlib"
+    file("termlib").exists() -> "termlib"
+    else -> null
+}
+if (termlibPath != null) {
+    includeBuild(termlibPath) {
         dependencySubstitution {
             substitute(module("com.github.johnrobinsn:termlib")).using(project(":lib"))
         }
