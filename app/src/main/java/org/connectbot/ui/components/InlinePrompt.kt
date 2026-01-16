@@ -169,11 +169,20 @@ private fun BooleanPromptContent(
     onNo: () -> Unit
 ) {
     val terminalColors = MaterialTheme.colorScheme.terminal
+    val borderColor = Color.White
 
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .background(terminalColors.overlayBackground)
+            .drawBehind {
+                drawLine(
+                    color = borderColor,
+                    start = Offset(0f, 0f),
+                    end = Offset(size.width, 0f),
+                    strokeWidth = 1.dp.toPx()
+                )
+            }
+            .background(Color.Black)
             .padding(16.dp)
     ) {
         if (!instructions.isNullOrEmpty()) {
@@ -236,7 +245,7 @@ private fun DisconnectPromptContent(
                     strokeWidth = 1.dp.toPx()
                 )
             }
-            .background(MaterialTheme.colorScheme.surface)
+            .background(Color.Black)
             .padding(16.dp)
     ) {
         Text(
@@ -285,6 +294,7 @@ private fun StringPromptContent(
     var text by remember { mutableStateOf("") }
     val focusRequester = remember { FocusRequester() }
     val terminalColors = MaterialTheme.colorScheme.terminal
+    val borderColor = Color.White
 
     LaunchedEffect(Unit) {
         focusRequester.requestFocus()
@@ -293,7 +303,15 @@ private fun StringPromptContent(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .background(terminalColors.overlayBackground)
+            .drawBehind {
+                drawLine(
+                    color = borderColor,
+                    start = Offset(0f, 0f),
+                    end = Offset(size.width, 0f),
+                    strokeWidth = 1.dp.toPx()
+                )
+            }
+            .background(Color.Black)
             .padding(16.dp)
     ) {
         if (!instructions.isNullOrEmpty()) {
@@ -368,6 +386,7 @@ private fun HostKeyFingerprintPromptContent(
 ) {
     val terminalColors = MaterialTheme.colorScheme.terminal
     val clipboardManager = LocalClipboardManager.current
+    val borderColor = Color.White
 
     // Fingerprint format options
     val formats = listOf(
@@ -383,7 +402,15 @@ private fun HostKeyFingerprintPromptContent(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .background(terminalColors.overlayBackground)
+            .drawBehind {
+                drawLine(
+                    color = borderColor,
+                    start = Offset(0f, 0f),
+                    end = Offset(size.width, 0f),
+                    strokeWidth = 1.dp.toPx()
+                )
+            }
+            .background(Color.Black)
             .padding(16.dp)
     ) {
         Text(

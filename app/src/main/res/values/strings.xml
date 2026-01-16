@@ -716,6 +716,8 @@
 
 	<!-- Error message shown when server doesn't support any of the authentication methods we can use -->
 	<string name="terminal_auth_fail">"[Your host doesn't support 'password' or 'keyboard-interactive' authentication.]"</string>
+	<!-- Message shown in terminal when user cancels authentication -->
+	<string name="terminal_auth_cancelled">"Authentication cancelled"</string>
 
 	<!-- Message shown in terminal when shell session is not started because user disabled it in host settings -->
 	<string name="terminal_no_session">"Session will not be started due to host preference."</string>
