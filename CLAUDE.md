@@ -204,6 +204,16 @@ Terminal.kt has debug logging enabled (grep `Log.d("Terminal"`). Remove when sta
 - **Purpose**: Show soft keyboard even when hardware keyboard is detected
 - **Files**: `PreferenceConstants.kt`, `SettingsViewModel.kt`, `SettingsScreen.kt`, `ConsoleScreen.kt`
 
+#### Backtick Sends Escape Option
+- **Setting**: Settings → Keyboard → "Backtick sends Escape"
+- **Purpose**: Remap backtick (`) to Escape on hardware keyboards for vim users
+- **Behavior**:
+  - Short press (<500ms) → sends Escape
+  - Long press (≥500ms) → sends backtick character
+  - Shift+backtick → always sends tilde (~)
+- **Note**: Only affects hardware keyboard input, not soft keyboard
+- **Files**: `PreferenceConstants.kt`, `SettingsViewModel.kt`, `SettingsScreen.kt`, `ConsoleScreen.kt`, `termlib/.../KeyboardHandler.kt`, `termlib/.../Terminal.kt`
+
 #### IME Visibility on Connect
 - **Problem**: Soft keyboard wasn't showing when connecting to host
 - **Cause**: LaunchedEffect was resetting `showSoftwareKeyboard` to false on initial load before IME could appear
