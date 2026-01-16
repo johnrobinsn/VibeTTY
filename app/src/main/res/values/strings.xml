@@ -1235,6 +1235,10 @@
 	<string name="pref_kittykeyboard_title">Enhanced keyboard protocol</string>
 	<!-- Summary text for Kitty keyboard protocol setting -->
 	<string name="pref_kittykeyboard_summary">Enable Kitty keyboard protocol for Shift+Enter and other modifier combinations</string>
+	<!-- Title for backtick sends Escape setting -->
+	<string name="pref_backtick_escape_title">Backtick sends Escape</string>
+	<!-- Summary text for backtick sends Escape setting -->
+	<string name="pref_backtick_escape_summary">Short press sends Escape, long press (hold) sends backtick. Hardware keyboard only.</string>
 	<!-- Title for custom terminal types preference -->
 	<string name="pref_customterminal_title">Custom Terminal Types</string>
 	<!-- Summary for custom terminal types preference -->

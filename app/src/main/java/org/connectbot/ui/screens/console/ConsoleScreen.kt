@@ -171,6 +171,12 @@ fun ConsoleScreen(
             PreferenceConstants.VIRTUAL_WIDTH_COLUMNS_DEFAULT
         )
     }
+    val backtickAsEscape = remember {
+        prefs.getBoolean(
+            PreferenceConstants.BACKTICK_AS_ESCAPE,
+            PreferenceConstants.BACKTICK_AS_ESCAPE_DEFAULT
+        )
+    }
 
     // Keyboard state
     val hasHardwareKeyboard = rememberHasHardwareKeyboard()
@@ -475,7 +481,8 @@ fun ConsoleScreen(
                             },
                             // Virtual width: only enable when not using forced size
                             virtualWidthColumns = if (virtualWidthEnabled && forceSize == null) virtualWidthColumns else null,
-                            horizontalScrollIndicatorBottomOffset = 0.dp
+                            horizontalScrollIndicatorBottomOffset = 0.dp,
+                            backtickAsEscape = backtickAsEscape
                         )
 
                         // Set up text input request callback from bridge (for camera button)

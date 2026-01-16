@@ -99,4 +99,8 @@ object PreferenceConstants {
     /* Kitty keyboard protocol support */
     const val KITTY_KEYBOARD_PROTOCOL: String = "kittyKeyboardProtocol"
     const val KITTY_KEYBOARD_PROTOCOL_DEFAULT: Boolean = true
+
+    /* Backtick as Escape key remapping */
+    const val BACKTICK_AS_ESCAPE: String = "backtickAsEscape"
+    const val BACKTICK_AS_ESCAPE_DEFAULT: Boolean = false
 }

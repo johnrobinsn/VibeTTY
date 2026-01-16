@@ -182,6 +182,7 @@ fun SettingsScreen(
         onVirtualWidthColumnsChange = viewModel::updateVirtualWidthColumns,
         onRememberOrientationFontSizeChange = viewModel::updateRememberOrientationFontSize,
         onKittyKeyboardProtocolChange = viewModel::updateKittyKeyboardProtocol,
+        onBacktickAsEscapeChange = viewModel::updateBacktickAsEscape,
         modifier = modifier
     )
 }
@@ -228,6 +229,7 @@ fun SettingsScreenContent(
     onVirtualWidthColumnsChange: (Int) -> Unit,
     onRememberOrientationFontSizeChange: (Boolean) -> Unit,
     onKittyKeyboardProtocolChange: (Boolean) -> Unit,
+    onBacktickAsEscapeChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Scaffold(
@@ -492,6 +494,15 @@ fun SettingsScreenContent(
                     summary = stringResource(R.string.pref_kittykeyboard_summary),
                     checked = uiState.kittyKeyboardProtocol,
                     onCheckedChange = onKittyKeyboardProtocolChange
+                )
+            }
+
+            item {
+                SwitchPreference(
+                    title = stringResource(R.string.pref_backtick_escape_title),
+                    summary = stringResource(R.string.pref_backtick_escape_summary),
+                    checked = uiState.backtickAsEscape,
+                    onCheckedChange = onBacktickAsEscapeChange
                 )
             }
 
@@ -1513,7 +1524,8 @@ private fun SettingsScreenPreview() {
             onVirtualWidthEnabledChange = {},
             onVirtualWidthColumnsChange = {},
             onRememberOrientationFontSizeChange = {},
-            onKittyKeyboardProtocolChange = {}
+            onKittyKeyboardProtocolChange = {},
+            onBacktickAsEscapeChange = {}
         )
     }
 }

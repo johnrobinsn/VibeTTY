@@ -80,7 +80,8 @@ data class SettingsUiState(
     val virtualWidthEnabled: Boolean = false,
     val virtualWidthColumns: Int = 100,
     val rememberOrientationFontSize: Boolean = true,
-    val kittyKeyboardProtocol: Boolean = false
+    val kittyKeyboardProtocol: Boolean = false,
+    val backtickAsEscape: Boolean = false
 )
 
 @HiltViewModel
@@ -181,6 +182,10 @@ class SettingsViewModel @Inject constructor(
             kittyKeyboardProtocol = prefs.getBoolean(
                 PreferenceConstants.KITTY_KEYBOARD_PROTOCOL,
                 PreferenceConstants.KITTY_KEYBOARD_PROTOCOL_DEFAULT
+            ),
+            backtickAsEscape = prefs.getBoolean(
+                PreferenceConstants.BACKTICK_AS_ESCAPE,
+                PreferenceConstants.BACKTICK_AS_ESCAPE_DEFAULT
             )
         )
     }
@@ -337,6 +342,12 @@ class SettingsViewModel @Inject constructor(
     fun updateKittyKeyboardProtocol(value: Boolean) {
         updateBooleanPref(PreferenceConstants.KITTY_KEYBOARD_PROTOCOL, value) {
             copy(kittyKeyboardProtocol = value)
+        }
+    }
+
+    fun updateBacktickAsEscape(value: Boolean) {
+        updateBooleanPref(PreferenceConstants.BACKTICK_AS_ESCAPE, value) {
+            copy(backtickAsEscape = value)
         }
     }
 
