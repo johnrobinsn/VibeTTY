@@ -234,7 +234,9 @@ fun ConsoleScreen(
     }
 
     // Request focus on terminal when screen appears (e.g., returning from navigation)
+    // Delay slightly to ensure Terminal's ImeInputView is laid out first
     LaunchedEffect(Unit) {
+        delay(100)
         termFocusRequester.requestFocus()
     }
 
