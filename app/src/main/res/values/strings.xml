@@ -422,6 +422,10 @@
 	<string name="color_cyan">Cyan</string>
 	<!-- Color name for teal (#009688) -->
 	<string name="color_teal">Teal</string>
+	<!-- Color name for soft teal (#80CBC4) -->
+	<string name="color_soft_teal">Soft Teal</string>
+	<!-- Color name for mint (#1DE9B6) -->
+	<string name="color_mint">Mint</string>
 	<!-- Color name for green (#4CAF50) -->
 	<string name="color_green">Green</string>
 	<!-- Color name for light green (#8BC34A) -->
