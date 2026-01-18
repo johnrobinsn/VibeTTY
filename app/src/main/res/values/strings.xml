@@ -1234,6 +1234,10 @@
 	<string name="pref_default_profile_none">None (use host settings)</string>
 	<!-- Summary text for special keys always visible setting -->
 	<string name="pref_alwaysvisible_summary">Keep special keys always visible</string>
+	<!-- Title for VibeBar alternate keyboard panel -->
+	<string name="pref_use_vibe_bar_title">Use VibeBar</string>
+	<!-- Summary text for VibeBar setting -->
+	<string name="pref_use_vibe_bar_summary">Compact keyboard panel with Ctrl+Alt combos for vibe coding</string>
 	<!-- Title for force soft keyboard setting -->
 	<string name="pref_forcesoftkeyboard_title">Force software keyboard</string>
 	<!-- Summary text for force soft keyboard setting -->

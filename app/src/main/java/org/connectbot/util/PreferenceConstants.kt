@@ -103,4 +103,8 @@ object PreferenceConstants {
     /* Backtick as Escape key remapping */
     const val BACKTICK_AS_ESCAPE: String = "backtickAsEscape"
     const val BACKTICK_AS_ESCAPE_DEFAULT: Boolean = false
+
+    /* VibeBar alternate keyboard panel */
+    const val USE_VIBE_BAR: String = "useVibeBar"
+    const val USE_VIBE_BAR_DEFAULT: Boolean = false
 }

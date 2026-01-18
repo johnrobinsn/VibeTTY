@@ -188,6 +188,7 @@ fun SettingsScreen(
         onRememberOrientationFontSizeChange = viewModel::updateRememberOrientationFontSize,
         onKittyKeyboardProtocolChange = viewModel::updateKittyKeyboardProtocol,
         onBacktickAsEscapeChange = viewModel::updateBacktickAsEscape,
+        onUseVibeBarChange = viewModel::updateUseVibeBar,
         modifier = modifier
     )
 }
@@ -235,6 +236,7 @@ fun SettingsScreenContent(
     onRememberOrientationFontSizeChange: (Boolean) -> Unit,
     onKittyKeyboardProtocolChange: (Boolean) -> Unit,
     onBacktickAsEscapeChange: (Boolean) -> Unit,
+    onUseVibeBarChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Scaffold(
@@ -488,6 +490,15 @@ fun SettingsScreenContent(
                     summary = stringResource(R.string.pref_alwaysvisible_summary),
                     checked = uiState.alwaysvisible,
                     onCheckedChange = onAlwaysVisibleChange
+                )
+            }
+
+            item {
+                SwitchPreference(
+                    title = stringResource(R.string.pref_use_vibe_bar_title),
+                    summary = stringResource(R.string.pref_use_vibe_bar_summary),
+                    checked = uiState.useVibeBar,
+                    onCheckedChange = onUseVibeBarChange
                 )
             }
 
@@ -1537,7 +1548,8 @@ private fun SettingsScreenPreview() {
             onVirtualWidthColumnsChange = {},
             onRememberOrientationFontSizeChange = {},
             onKittyKeyboardProtocolChange = {},
-            onBacktickAsEscapeChange = {}
+            onBacktickAsEscapeChange = {},
+            onUseVibeBarChange = {}
         )
     }
 }

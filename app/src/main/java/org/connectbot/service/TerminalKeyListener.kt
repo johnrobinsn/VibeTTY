@@ -471,6 +471,28 @@ class TerminalKeyListener(
         bridge.terminalEmulator.dispatchKey(modifiersForTerminal, key)
     }
 
+    /**
+     * Send a key with explicit modifiers.
+     * @param key The VTermKey code to send
+     * @param ctrl Whether Ctrl should be pressed
+     * @param alt Whether Alt should be pressed
+     * @param shift Whether Shift should be pressed
+     */
+    fun sendKeyWithModifiers(key: Int, ctrl: Boolean = false, alt: Boolean = false, shift: Boolean = false) {
+        var modifiers = 0
+        if (shift) modifiers = modifiers or 1
+        if (alt) modifiers = modifiers or 2
+        if (ctrl) modifiers = modifiers or 4
+        bridge.terminalEmulator.dispatchKey(modifiers, key)
+    }
+
+    /**
+     * Send an Enter key press.
+     */
+    fun sendEnter() {
+        bridge.terminalEmulator.dispatchKey(0, VTermKey.ENTER)
+    }
+
     private fun sendFunctionKey(keyCode: Int): Boolean {
         when (keyCode) {
             KeyEvent.KEYCODE_1 -> {
