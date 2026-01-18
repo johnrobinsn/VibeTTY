@@ -748,7 +748,7 @@ private fun ForgetHostKeysDialog(
 @Composable
 private fun parseColor(colorString: String?): Color {
     if (colorString.isNullOrBlank()) {
-        return colorResource(R.color.host_blue)
+        return colorResource(R.color.host_teal)
     } else {
         val colorInt = colorString.toColorInt()
         return Color(colorInt)
