@@ -186,7 +186,7 @@ Terminal.kt has debug logging enabled (grep `Log.d("Terminal"`). Remove when sta
 
 ### App Branding
 - **App name**: "VibeTTY" (defined in `res/values/notrans.xml`)
-- **Icon**: Cyan "V" with vibe waves + pink cursor on dark background
+- **Icon**: Minimal `>_` terminal prompt - teal chevron (#00897B) + mint cursor (#64FFDA) on dark background (#191C1B)
   - Vector drawables in `res/drawable/ic_launcher_*.xml`
   - Adaptive icon in `res/mipmap-anydpi-v26/icon.xml`
   - **Note**: easylauncher plugin caches icons - use `--no-build-cache` and delete `app/build/` if icon changes don't appear
@@ -243,6 +243,16 @@ Terminal.kt has debug logging enabled (grep `Log.d("Terminal"`). Remove when sta
 - **Cause**: Double-offsetting (Terminal padding + indicator offset both applied)
 - **Fix**: Removed redundant `horizontalScrollIndicatorBottomOffset`, Terminal padding handles positioning
 - **File**: `ConsoleScreen.kt` line 474
+
+#### VibeBar Alternate Keyboard Panel
+- **Setting**: Settings → Keyboard → "Use VibeBar"
+- **Purpose**: Compact keyboard panel optimized for vibe coding workflows
+- **Keys**: Esc, Tab, Enter, ↑, ↓, Ctrl+↑, Ctrl+↓, IME toggle
+- **Use case**: Ctrl+Up/Down for tmux page up/down bindings
+- **Escape sequences**:
+  - Ctrl+Up: `ESC[1;5A`
+  - Ctrl+Down: `ESC[1;5B`
+- **Files**: `VibeBar.kt`, `PreferenceConstants.kt`, `SettingsViewModel.kt`, `SettingsScreen.kt`, `ConsoleScreen.kt`, `TerminalKeyListener.kt`
 
 ### Extended Keyboard Protocols (Jan 2025)
 Enables Shift+Enter, Ctrl+Enter, and other modifier combinations for modern CLI tools like Claude Code.

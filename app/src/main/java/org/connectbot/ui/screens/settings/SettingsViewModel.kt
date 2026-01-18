@@ -81,7 +81,8 @@ data class SettingsUiState(
     val virtualWidthColumns: Int = 100,
     val rememberOrientationFontSize: Boolean = true,
     val kittyKeyboardProtocol: Boolean = false,
-    val backtickAsEscape: Boolean = false
+    val backtickAsEscape: Boolean = false,
+    val useVibeBar: Boolean = false
 )
 
 @HiltViewModel
@@ -186,6 +187,10 @@ class SettingsViewModel @Inject constructor(
             backtickAsEscape = prefs.getBoolean(
                 PreferenceConstants.BACKTICK_AS_ESCAPE,
                 PreferenceConstants.BACKTICK_AS_ESCAPE_DEFAULT
+            ),
+            useVibeBar = prefs.getBoolean(
+                PreferenceConstants.USE_VIBE_BAR,
+                PreferenceConstants.USE_VIBE_BAR_DEFAULT
             )
         )
     }
@@ -348,6 +353,12 @@ class SettingsViewModel @Inject constructor(
     fun updateBacktickAsEscape(value: Boolean) {
         updateBooleanPref(PreferenceConstants.BACKTICK_AS_ESCAPE, value) {
             copy(backtickAsEscape = value)
+        }
+    }
+
+    fun updateUseVibeBar(value: Boolean) {
+        updateBooleanPref(PreferenceConstants.USE_VIBE_BAR, value) {
+            copy(useVibeBar = value)
         }
     }
 

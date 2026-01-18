@@ -112,6 +112,7 @@ import org.connectbot.ui.components.ResizeDialog
 import org.connectbot.ui.components.TERMINAL_KEYBOARD_HEIGHT_DP
 import org.connectbot.ui.components.TerminalKeyboard
 import org.connectbot.ui.components.UrlScanDialog
+import org.connectbot.ui.components.VibeBar
 import org.connectbot.util.PreferenceConstants
 import org.connectbot.util.rememberTerminalTypefaceResultFromStoredValue
 import timber.log.Timber
@@ -175,6 +176,12 @@ fun ConsoleScreen(
         prefs.getBoolean(
             PreferenceConstants.BACKTICK_AS_ESCAPE,
             PreferenceConstants.BACKTICK_AS_ESCAPE_DEFAULT
+        )
+    }
+    val useVibeBar = remember {
+        prefs.getBoolean(
+            PreferenceConstants.USE_VIBE_BAR,
+            PreferenceConstants.USE_VIBE_BAR_DEFAULT
         )
     }
 
@@ -502,22 +509,36 @@ fun ConsoleScreen(
                             modifier = Modifier
                                 .align(Alignment.BottomCenter)
                         ) {
-                            TerminalKeyboard(
-                                bridge = bridge,
-                                onInteraction = { handleKeyboardInteraction() },
-                                onHideIme = {
-                                    showSoftwareKeyboard = false
-                                },
-                                onShowIme = {
-                                    showSoftwareKeyboard = true
-                                },
-                                onOpenTextInput = {
-                                    // Open floating text input dialog
-                                    showTextInputDialog = true
-                                },
-                                imeVisible = imeVisible,
-                                playAnimation = !hasPlayedKeyboardAnimation
-                            )
+                            if (useVibeBar) {
+                                VibeBar(
+                                    bridge = bridge,
+                                    onInteraction = { handleKeyboardInteraction() },
+                                    onHideIme = {
+                                        showSoftwareKeyboard = false
+                                    },
+                                    onShowIme = {
+                                        showSoftwareKeyboard = true
+                                    },
+                                    imeVisible = imeVisible
+                                )
+                            } else {
+                                TerminalKeyboard(
+                                    bridge = bridge,
+                                    onInteraction = { handleKeyboardInteraction() },
+                                    onHideIme = {
+                                        showSoftwareKeyboard = false
+                                    },
+                                    onShowIme = {
+                                        showSoftwareKeyboard = true
+                                    },
+                                    onOpenTextInput = {
+                                        // Open floating text input dialog
+                                        showTextInputDialog = true
+                                    },
+                                    imeVisible = imeVisible,
+                                    playAnimation = !hasPlayedKeyboardAnimation
+                                )
+                            }
                         }
 
                         // Show inline prompts from the current bridge (non-modal at bottom)
