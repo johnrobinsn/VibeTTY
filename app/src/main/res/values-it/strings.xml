@@ -312,7 +312,7 @@
   <string name="dialog_title_edit_color">Modifica Colore %1$d</string>
   <string name="dialog_title_reset_all">Reimposta tutti i colori?</string>
   <string name="dialog_message_reset_all">Questa operazione ripristinerà i valori predefiniti di tutti i 256 colori. Questa azione non può essere annullata.</string>
-  <string name="app_is_running">ConnectBot è in esecuzione</string>
+  <string name="app_is_running">VibeTTY è in esecuzione</string>
   <string name="label_red">Rosso</string>
   <string name="label_green">Verde</string>
   <string name="label_blue">Blu</string>
@@ -369,7 +369,7 @@
   <string name="empty_pubkeys_message">Nessuna chiave trovata.</string>
   <string name="empty_port_forwards_message">Nessun inoltro di porta configurato.</string>
   <string name="empty_urls_message">Nessun URL trovato nel buffer del terminale</string>
-  <string name="console_default_title">Console si riferisce alla finestra del terminale che mostra l\'output e accetta l\'input dell\'utente per eseguire comandi e interagire con il sistema operativo o un\'applicazione, in questo caso il terminale emulatore incluso in ConnectBot</string>
+  <string name="console_default_title">Console si riferisce alla finestra del terminale che mostra l\'output e accetta l\'input dell\'utente per eseguire comandi e interagire con il sistema operativo o un\'applicazione, in questo caso il terminale emulatore incluso in VibeTTY</string>
   <string name="host_editor_quick_connect_label">Collegamento rapido</string>
   <string name="host_editor_quick_connect_placeholder">utente\@nomehost:porta</string>
   <string name="host_editor_quick_connect_example">Esempio root\@192.168.1.122</string>

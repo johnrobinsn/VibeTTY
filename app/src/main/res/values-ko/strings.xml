@@ -312,7 +312,7 @@
   <string name="dialog_title_edit_color">색상 편집 %1$d</string>
   <string name="dialog_title_reset_all">모든 색상을 초기화합니까?</string>
   <string name="dialog_message_reset_all">이 작업은 모든 256色的 색상을 기본값으로 재설정합니다. 이 동작은 실행 취소할 수 없습니다.</string>
-  <string name="app_is_running">ConnectBot 실행 중</string>
+  <string name="app_is_running">VibeTTY 실행 중</string>
   <string name="label_red">레드</string>
   <string name="label_green">그린</string>
   <string name="label_blue">블루</string>

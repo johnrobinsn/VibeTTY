@@ -151,7 +151,7 @@
   <string name="no">Ei</string>
   <string name="yes">Kyllä</string>
   <string name="menu_colors_reset">Palauta</string>
-  <string name="app_is_running">ConnectBot on käynnissä</string>
+  <string name="app_is_running">VibeTTY on käynnissä</string>
   <string name="image_description_connected">Yhdistetty.</string>
   <string name="image_description_disconnected">Yhteys katkaistu</string>
   <string name="image_description_send_escape_character">Lähetä escape.</string>

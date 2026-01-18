@@ -152,5 +152,5 @@
   <string name="no">Nee</string>
   <string name="yes">Ja</string>
   <string name="menu_colors_reset">Terug naar standaardinstellingen</string>
-  <string name="app_is_running">ConnectBot werkt (Connecties zijn actief)</string>
+  <string name="app_is_running">VibeTTY werkt (Connecties zijn actief)</string>
 </resources>

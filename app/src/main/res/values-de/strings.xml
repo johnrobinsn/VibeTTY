@@ -312,7 +312,7 @@
   <string name="dialog_title_edit_color">Bearbeite Farbe %1$d</string>
   <string name="dialog_title_reset_all">Alle Farben zurücksetzen</string>
   <string name="dialog_message_reset_all">Dies wird alle 256 Farben auf ihre Standardwerte zurücksetzen Dieser Vorgang kann nicht rückgängig gemacht werden</string>
-  <string name="app_is_running">ConnectBot läuft</string>
+  <string name="app_is_running">VibeTTY läuft</string>
   <string name="label_red">Rot</string>
   <string name="label_green">Grün</string>
   <string name="label_blue">Blau</string>

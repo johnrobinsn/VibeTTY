@@ -181,7 +181,7 @@
   <string name="no">不使用</string>
   <string name="yes">使用</string>
   <string name="menu_colors_reset">重置</string>
-  <string name="app_is_running">ConnectBot 正在运行</string>
+  <string name="app_is_running">VibeTTY 正在运行</string>
   <string name="colors_fg_label">前景色：%1$d</string>
   <string name="color_bg_label">背景色：%1$d</string>
   <string name="image_description_connected">已连接。</string>

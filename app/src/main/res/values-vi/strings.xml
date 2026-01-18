@@ -179,7 +179,7 @@
   <string name="no">Không</string>
   <string name="yes">Đồng ý</string>
   <string name="menu_colors_reset">Tái Thiết Lập</string>
-  <string name="app_is_running">ConnectBot đang kết nối</string>
+  <string name="app_is_running">VibeTTY đang kết nối</string>
   <string name="colors_fg_label">Màu trên nền: %1$d</string>
   <string name="color_bg_label">Màu nền: %1$d</string>
   <string name="image_description_connected">Đã kết nối.</string>

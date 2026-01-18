@@ -312,7 +312,7 @@
   <string name="dialog_title_edit_color">Upravit barvu %1$d</string>
   <string name="dialog_title_reset_all">Resetovat všechny barvy?</string>
   <string name="dialog_message_reset_all">Tohle resetuje všechny 256 barev na jejich výchozí hodnoty. Tento krok nelze vrátit zpět.</string>
-  <string name="app_is_running">ConnectBot běží</string>
+  <string name="app_is_running">VibeTTY běží</string>
   <string name="label_red">Červená</string>
   <string name="label_green">zelená</string>
   <string name="label_blue">Modrý</string>

@@ -312,7 +312,7 @@
   <string name="dialog_title_edit_color">Editar Cor %1$d</string>
   <string name="dialog_title_reset_all">Reiniciar todas as cores?</string>
   <string name="dialog_message_reset_all">Isso irá reiniciar todos os 256 cores para seus valores padrão. Esta ação não pode ser desfeita.</string>
-  <string name="app_is_running">ConnectBot está executando</string>
+  <string name="app_is_running">VibeTTY está executando</string>
   <string name="label_red">Vermelho</string>
   <string name="label_green">Verde</string>
   <string name="label_blue">Azul</string>

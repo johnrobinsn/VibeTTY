@@ -158,7 +158,7 @@
   <string name="no">Hayır</string>
   <string name="yes">Evet</string>
   <string name="menu_colors_reset">Sıfırla</string>
-  <string name="app_is_running">ConnectBot çalışıyor</string>
+  <string name="app_is_running">VibeTTY çalışıyor</string>
   <string name="colors_fg_label">ÖR: %1$d</string>
   <string name="color_bg_label">AR: %1$d</string>
   <string name="image_description_connected">Bağlandı.</string>

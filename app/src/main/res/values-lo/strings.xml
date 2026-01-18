@@ -181,7 +181,7 @@
   <string name="no">ບໍ່</string>
   <string name="yes">ແມ່ນ</string>
   <string name="menu_colors_reset">ຣີເຊັດ</string>
-  <string name="app_is_running">ConnectBot ກຳລັງເຮັດວຽກຢູ່</string>
+  <string name="app_is_running">VibeTTY ກຳລັງເຮັດວຽກຢູ່</string>
   <string name="colors_fg_label">FG: %1$d</string>
   <string name="color_bg_label">BG: %1$d</string>
   <string name="image_description_connected">ເຊື່ອມຕໍ່ແລ້ວ.</string>

@@ -181,7 +181,7 @@
   <string name="no">No</string>
   <string name="yes">Sí</string>
   <string name="menu_colors_reset">Reinicia</string>
-  <string name="app_is_running">El ConnectBot està en marxa</string>
+  <string name="app_is_running">El VibeTTY està en marxa</string>
   <string name="colors_fg_label">Principal: %1$d</string>
   <string name="color_bg_label">Fons: %1$d</string>
   <string name="image_description_connected">Connectat.</string>

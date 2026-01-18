@@ -312,7 +312,7 @@
   <string name="dialog_title_edit_color">Редактировать цвет %1$d</string>
   <string name="dialog_title_reset_all">Сбросить все цвета?</string>
   <string name="dialog_message_reset_all">Это приведет к сбросу всех 256 цветов к их значениям по умолчанию. Это действие нельзя отменить.</string>
-  <string name="app_is_running">ConnectBot запущен</string>
+  <string name="app_is_running">VibeTTY запущен</string>
   <string name="label_red">Красный</string>
   <string name="label_green">Зеленый</string>
   <string name="label_blue">Синий</string>
