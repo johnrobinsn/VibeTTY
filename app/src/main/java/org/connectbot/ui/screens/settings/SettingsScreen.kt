@@ -321,27 +321,27 @@ fun SettingsScreenContent(
                 // Build combined font list: presets + custom fonts + local fonts
                 // Only show downloadable preset fonts if Google Play Services is available
                 val presetEntries = if (BuildConfig.HAS_DOWNLOADABLE_FONTS) {
-                    TerminalFont.entries.map { it.displayName to it.name }
+                    TerminalFont.entries.map { FontEntry(it.displayName, it.name) }
                 } else {
                     // In OSS builds, only show System Default (which doesn't require download)
-                    listOf(TerminalFont.SYSTEM_DEFAULT.displayName to TerminalFont.SYSTEM_DEFAULT.name)
+                    listOf(FontEntry(TerminalFont.SYSTEM_DEFAULT.displayName, TerminalFont.SYSTEM_DEFAULT.name))
                 }
                 val customEntries = if (BuildConfig.HAS_DOWNLOADABLE_FONTS) {
-                    uiState.customFonts.map { it to TerminalFont.createCustomFontValue(it) }
+                    uiState.customFonts.map { FontEntry(it, TerminalFont.createCustomFontValue(it)) }
                 } else {
                     emptyList()
                 }
                 val localEntries = uiState.localFonts.map { (displayName, fileName) ->
-                    displayName to LocalFontProvider.createLocalFontValue(fileName)
+                    FontEntry(displayName, LocalFontProvider.createLocalFontValue(fileName))
                 }
                 val allEntries = presetEntries + customEntries + localEntries
 
-                ListPreference(
+                FontFamilyPreference(
                     title = stringResource(R.string.pref_fontfamily_title),
                     summary = getLocalizedFontDisplayName(uiState.fontFamily),
-                    value = uiState.fontFamily,
-                    entries = allEntries,
-                    onValueChange = onFontFamilyChange
+                    currentValue = uiState.fontFamily,
+                    fontEntries = allEntries,
+                    onFontSelected = onFontFamilyChange
                 )
             }
 
@@ -697,6 +697,34 @@ private fun SwitchPreference(
         modifier = modifier.clickable { onCheckedChange(!checked) }
     )
     HorizontalDivider()
+}
+
+@Composable
+private fun FontFamilyPreference(
+    title: String,
+    summary: String,
+    currentValue: String,
+    fontEntries: List<FontEntry>,
+    onFontSelected: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    var showDialog by remember { mutableStateOf(false) }
+
+    ListItem(
+        headlineContent = { Text(title) },
+        supportingContent = { Text(summary) },
+        modifier = modifier.clickable { showDialog = true }
+    )
+    HorizontalDivider()
+
+    if (showDialog) {
+        FontPickerDialog(
+            currentFontValue = currentValue,
+            fontEntries = fontEntries,
+            onFontSelected = onFontSelected,
+            onDismiss = { showDialog = false }
+        )
+    }
 }
 
 @Composable

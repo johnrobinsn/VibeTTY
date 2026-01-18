@@ -230,6 +230,9 @@
 	<string name="pref_fontfamily_title">"Font"</string>
 	<!-- Description of the font family preference -->
 
+	<!-- Label for sample text area in font picker -->
+	<string name="font_sample_text_label">"Sample Text"</string>
+
 	<!-- Title for adding custom font -->
 	<string name="pref_customfont_title">"Add custom font"</string>
 	<!-- Summary for adding custom font -->
