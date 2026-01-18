@@ -2,6 +2,123 @@
 
 This document tracks new features added to VibeTTY.
 
+## ADB Port Discovery
+
+**Status:** Complete
+**Files:**
+- `app/src/main/java/org/connectbot/util/AdbPortScanner.kt` (new)
+- `app/src/main/java/org/connectbot/ui/screens/portforwardlist/AdbDiscoveryDialog.kt` (new)
+- `app/src/main/java/org/connectbot/ui/screens/portforwardlist/PortForwardListScreen.kt`
+- `app/src/main/java/org/connectbot/service/ConnectivityMonitor.kt`
+
+**Description:**
+Scans localhost to discover the Android wireless debugging (ADB) port and displays a ready-to-use `adb connect` command.
+
+**Features:**
+- Multi-threaded port scanning (ports 30000-44000)
+- Displays discovered port and device WiFi IP address
+- Copyable `adb connect` command
+- "Create Mapping" button to pre-fill a remote port forward for ADB access
+
+**How to Use:**
+1. Enable wireless debugging on your Android device
+2. Connect to an SSH host
+3. Go to Port Forwards screen
+4. Tap the **+ADB** button
+5. Dialog shows the ADB port and connection command
+6. Optionally tap "Create Mapping" to set up a remote port forward
+
+---
+
+## Font Picker Dialog
+
+**Status:** Complete
+**Files:**
+- `app/src/main/java/org/connectbot/ui/screens/settings/FontPickerDialog.kt` (new)
+- `app/src/main/java/org/connectbot/ui/screens/settings/SettingsScreen.kt`
+
+**Description:**
+Replaces the dropdown font selector with a scrollable list showing live font previews.
+
+**Features:**
+- Scrollable list of all available fonts (presets, Google Fonts, local fonts)
+- Each font name rendered in that font for visual preview
+- Async font loading with loading indicators
+- Editable sample text area with C++ Hello World default
+- Sample text rendered in currently selected font
+
+**How to Use:**
+1. Settings → Font
+2. Tap to open the font picker dialog
+3. Scroll through fonts - each row shows the font name in that font
+4. Edit the sample text to test specific characters
+5. Tap OK to apply selection
+
+---
+
+## VibeBar (Alternate Keyboard Panel)
+
+**Status:** Complete
+**Files:**
+- `app/src/main/java/org/connectbot/ui/components/VibeBar.kt` (new)
+- `app/src/main/java/org/connectbot/ui/screens/console/ConsoleScreen.kt`
+
+**Description:**
+An alternate keyboard panel optimized for coding workflows, providing quick access to common programming keys.
+
+**Features:**
+- Tab, Escape, arrow keys, Ctrl, Alt modifiers
+- Common programming symbols: `{}`, `[]`, `()`, `<>`, etc.
+- Pipe, backslash, tilde, backtick
+- Swipe up/down to switch between VibeBar and standard keyboard panel
+
+---
+
+## Keyboard Navigation
+
+**Status:** Complete
+**Files:**
+- `app/src/main/java/org/connectbot/ui/screens/hostlist/HostListScreen.kt`
+- `app/src/main/java/org/connectbot/ui/screens/settings/SettingsScreen.kt`
+- `app/src/main/java/org/connectbot/ui/screens/portforwardlist/PortForwardListScreen.kt`
+- Various other screens
+
+**Description:**
+Hardware keyboard navigation support throughout the app with Escape key to go back.
+
+**Features:**
+- Press **Escape** to navigate back from any screen
+- Works with hardware keyboards (Bluetooth, USB)
+- Consistent behavior across all screens
+
+---
+
+## Backtick Sends Escape
+
+**Status:** Complete
+**Files:**
+- `app/src/main/java/org/connectbot/util/PreferenceConstants.kt`
+- `app/src/main/java/org/connectbot/ui/screens/settings/SettingsViewModel.kt`
+- `app/src/main/java/org/connectbot/ui/screens/settings/SettingsScreen.kt`
+- `app/src/main/java/org/connectbot/ui/screens/console/ConsoleScreen.kt`
+- `termlib/lib/src/main/java/org/connectbot/terminal/KeyboardHandler.kt`
+
+**Description:**
+Option to remap the backtick key to send Escape on hardware keyboards - useful for vim users.
+
+**Behavior:**
+- Short press backtick (`): sends Escape
+- Long press (≥500ms): sends backtick character
+- Shift+backtick: always sends tilde (~)
+
+**How to Enable:**
+1. Settings → Keyboard → "Backtick sends Escape"
+2. Toggle ON
+
+**Note:** Only affects hardware keyboard input, not the soft keyboard.
+
+---
+
 ## Kitty Keyboard Protocol
 
 **Status:** Complete

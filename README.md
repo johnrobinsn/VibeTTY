@@ -10,13 +10,17 @@ VibeTTY builds upon ConnectBot's excellent foundation, adding enhancements focus
 
 - **Kitty Keyboard Protocol**: Full support for the [Kitty keyboard protocol](https://sw.kovidgoyal.net/kitty/keyboard-protocol/) enabling Shift+Enter, Ctrl+Enter, and other modifier combinations in modern CLI tools like Claude Code
 - **Virtual Terminal Width**: Render the terminal wider than the physical screen (e.g., 100+ columns on a narrow phone) with single-finger horizontal panning
+- **ADB Port Discovery**: Automatically find your device's wireless debugging port and generate `adb connect` commands
+- **Font Picker with Live Preview**: Browse fonts with each name rendered in that font, plus editable sample text
+- **VibeBar**: Alternate keyboard panel with programming symbols, arrow keys, and modifiers
+- **Backtick Sends Escape**: Optional remapping for vim users on hardware keyboards
+- **Keyboard Navigation**: Press Escape to go back from any screen
 - **Improved Keyboard Handling**: Better detection of connected vs. paired Bluetooth keyboards
 - **Force Software Keyboard Option**: Show soft keyboard even when hardware keyboard is detected
 - **Toggle Keyboard/Title Bar**: Tap the terminal to toggle UI visibility
-- **Long-press Text Selection**: Works correctly with horizontal pan offset
 - **Per-orientation Font Sizes**: Remember different font sizes for portrait and landscape
 
-See [NEW_FEATURES.md](NEW_FEATURES.md) for implementation details and [docs/](docs/) for technical documentation.
+See [NEW_FEATURES.md](NEW_FEATURES.md) for implementation details, [FAQ.md](FAQ.md) for common questions, and [docs/](docs/) for technical documentation.
 
 ## Why VibeTTY?
 
