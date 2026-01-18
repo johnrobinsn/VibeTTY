@@ -312,7 +312,7 @@
   <string name="dialog_title_edit_color">색상 편집 %1$d</string>
   <string name="dialog_title_reset_all">모든 색상을 초기화합니까?</string>
   <string name="dialog_message_reset_all">이 작업은 모든 256色的 색상을 기본값으로 재설정합니다. 이 동작은 실행 취소할 수 없습니다.</string>
-  <string name="app_is_running">ConnectBot 실행 중</string>
+  <string name="app_is_running">VibeTTY 실행 중</string>
   <string name="label_red">레드</string>
   <string name="label_green">그린</string>
   <string name="label_blue">블루</string>
@@ -447,7 +447,7 @@
   <string name="logs_title">어플리케이션 로그</string>
   <string name="copy_logs">로그 복사하기</string>
   <string name="logs_copied">클립보드로 로그 복사됨</string>
-  <string name="logs_bug_report_info">버그를報告하려면 이러한 로그를 복사하고 https://connectbot.org/bug에서 새로운 문제를 열어주세요</string>
+  <string name="logs_bug_report_info">버그를報告하려면 이러한 로그를 복사하고 https://github.com/johnrobinsn/VibeTTY/issues에서 새로운 문제를 열어주세요</string>
   <string name="no_logs_available">로그가 사용할 수 없음</string>
   <string name="help_section_about">앱에 관하여</string>
   <string name="colorscheme_default_description">기본 터미널 색상</string>

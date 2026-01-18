@@ -44,6 +44,8 @@ fun getIconColors(): List<ColorOption> = listOf(
     ColorOption("Light Blue", "#03A9F4", stringResource(R.string.color_light_blue)),
     ColorOption("Cyan", "#00BCD4", stringResource(R.string.color_cyan)),
     ColorOption("Teal", "#009688", stringResource(R.string.color_teal)),
+    ColorOption("Soft Teal", "#80CBC4", stringResource(R.string.color_soft_teal)),
+    ColorOption("Mint", "#1DE9B6", stringResource(R.string.color_mint)),
     ColorOption("Green", "#4CAF50", stringResource(R.string.color_green)),
     ColorOption("Light Green", "#8BC34A", stringResource(R.string.color_light_green)),
     ColorOption("Lime", "#CDDC39", stringResource(R.string.color_lime)),

@@ -146,5 +146,5 @@
   <string name="no">Nie</string>
   <string name="yes">Áno</string>
   <string name="menu_colors_reset">Pôvodné</string>
-  <string name="app_is_running">ConnectBot je spustený</string>
+  <string name="app_is_running">VibeTTY je spustený</string>
 </resources>

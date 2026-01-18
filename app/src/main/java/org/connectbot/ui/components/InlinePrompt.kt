@@ -21,6 +21,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -60,8 +61,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.input.key.KeyEventType
+import androidx.compose.ui.input.key.key
+import androidx.compose.ui.input.key.onPreviewKeyEvent
+import androidx.compose.ui.input.key.type
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.testTag
@@ -170,10 +176,25 @@ private fun BooleanPromptContent(
 ) {
     val terminalColors = MaterialTheme.colorScheme.terminal
     val borderColor = Color.White
+    val focusRequester = remember { FocusRequester() }
+
+    LaunchedEffect(Unit) {
+        focusRequester.requestFocus()
+    }
 
     Column(
         modifier = Modifier
             .fillMaxWidth()
+            .focusRequester(focusRequester)
+            .focusable()
+            .onPreviewKeyEvent { event ->
+                if (event.type == KeyEventType.KeyDown && event.key == Key.Escape) {
+                    onNo()
+                    true
+                } else {
+                    false
+                }
+            }
             .drawBehind {
                 drawLine(
                     color = borderColor,
@@ -232,10 +253,25 @@ private fun DisconnectPromptContent(
 ) {
     val terminalColors = MaterialTheme.colorScheme.terminal
     val borderColor = Color.White
+    val focusRequester = remember { FocusRequester() }
+
+    LaunchedEffect(Unit) {
+        focusRequester.requestFocus()
+    }
 
     Column(
         modifier = Modifier
             .fillMaxWidth()
+            .focusRequester(focusRequester)
+            .focusable()
+            .onPreviewKeyEvent { event ->
+                if (event.type == KeyEventType.KeyDown && event.key == Key.Escape) {
+                    onStay()
+                    true
+                } else {
+                    false
+                }
+            }
             .drawBehind {
                 // Draw top border line
                 drawLine(
@@ -303,6 +339,14 @@ private fun StringPromptContent(
     Column(
         modifier = Modifier
             .fillMaxWidth()
+            .onPreviewKeyEvent { event ->
+                if (event.type == KeyEventType.KeyDown && event.key == Key.Escape) {
+                    onCancel()
+                    true
+                } else {
+                    false
+                }
+            }
             .drawBehind {
                 drawLine(
                     color = borderColor,
@@ -387,6 +431,11 @@ private fun HostKeyFingerprintPromptContent(
     val terminalColors = MaterialTheme.colorScheme.terminal
     val clipboardManager = LocalClipboardManager.current
     val borderColor = Color.White
+    val focusRequester = remember { FocusRequester() }
+
+    LaunchedEffect(Unit) {
+        focusRequester.requestFocus()
+    }
 
     // Fingerprint format options
     val formats = listOf(
@@ -402,6 +451,16 @@ private fun HostKeyFingerprintPromptContent(
     Column(
         modifier = Modifier
             .fillMaxWidth()
+            .focusRequester(focusRequester)
+            .focusable()
+            .onPreviewKeyEvent { event ->
+                if (event.type == KeyEventType.KeyDown && event.key == Key.Escape) {
+                    onReject()
+                    true
+                } else {
+                    false
+                }
+            }
             .drawBehind {
                 drawLine(
                     color = borderColor,

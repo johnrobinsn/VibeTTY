@@ -147,7 +147,7 @@
   <string name="no">Ne</string>
   <string name="yes">Da</string>
   <string name="menu_colors_reset">Ponastavi</string>
-  <string name="app_is_running">ConnectBot je dejaven</string>
+  <string name="app_is_running">VibeTTY je dejaven</string>
   <string name="image_description_connected">Povezano.</string>
   <string name="image_description_disconnected">Prekinjeno.</string>
   <string name="button_key_esc">Esc</string>

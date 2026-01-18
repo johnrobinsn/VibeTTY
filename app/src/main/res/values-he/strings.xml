@@ -147,7 +147,7 @@
   <string name="no">לא</string>
   <string name="yes">כן</string>
   <string name="menu_colors_reset">איפוס</string>
-  <string name="app_is_running">ConnectBot פעיל</string>
+  <string name="app_is_running">VibeTTY פעיל</string>
 	<string name="colors_fg_label">קדמה:%1$d</string>
   <string name="color_bg_label">רקע:%1$d</string>
   <string name="image_description_connected">יש חיבור.</string>

@@ -312,7 +312,7 @@
   <string name="dialog_title_edit_color">Upravit barvu %1$d</string>
   <string name="dialog_title_reset_all">Resetovat všechny barvy?</string>
   <string name="dialog_message_reset_all">Tohle resetuje všechny 256 barev na jejich výchozí hodnoty. Tento krok nelze vrátit zpět.</string>
-  <string name="app_is_running">ConnectBot běží</string>
+  <string name="app_is_running">VibeTTY běží</string>
   <string name="label_red">Červená</string>
   <string name="label_green">zelená</string>
   <string name="label_blue">Modrý</string>
@@ -447,7 +447,7 @@
   <string name="logs_title">Záznamy aplikace</string>
   <string name="copy_logs">Kopírovat protokoly</string>
   <string name="logs_copied">Protokoly zkopírovány do schránky</string>
-  <string name="logs_bug_report_info">Chcete-li nahlásit chybu, zkopírujte tyto protokoly a otevřete nový problém na adrese https://connectbot.org/bug</string>
+  <string name="logs_bug_report_info">Chcete-li nahlásit chybu, zkopírujte tyto protokoly a otevřete nový problém na adrese https://github.com/johnrobinsn/VibeTTY/issues</string>
   <string name="no_logs_available">Žádné záznamy nejsou k dispozici</string>
   <string name="help_section_about">O aplikaci</string>
   <string name="colorscheme_default_description">Výchozí barvy terminálu</string>

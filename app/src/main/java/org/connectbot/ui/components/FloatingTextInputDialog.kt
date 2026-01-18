@@ -56,6 +56,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.input.key.KeyEventType
+import androidx.compose.ui.input.key.key
+import androidx.compose.ui.input.key.onPreviewKeyEvent
+import androidx.compose.ui.input.key.type
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
@@ -242,6 +247,14 @@ fun FloatingTextInputDialog(
 							.weight(1f)
 							.height(90.dp)
 							.focusRequester(focusRequester)
+							.onPreviewKeyEvent { event ->
+								if (event.type == KeyEventType.KeyDown && event.key == Key.Escape) {
+									onDismiss()
+									true
+								} else {
+									false
+								}
+							}
 					)
 
 					// Send button

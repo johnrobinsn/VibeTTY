@@ -153,7 +153,7 @@
   <string name="no">Tidak</string>
   <string name="yes">Ya</string>
   <string name="menu_colors_reset">Atur ulang</string>
-  <string name="app_is_running">ConnectBot sedang berjalan</string>
+  <string name="app_is_running">VibeTTY sedang berjalan</string>
   <string name="colors_fg_label">WD: %1$d</string>
   <string name="color_bg_label">WB: %1$d</string>
   <string name="image_description_connected">Tersambung.</string>

@@ -91,8 +91,8 @@ private val darkScheme = darkColorScheme(
 @Composable
 fun ConnectBotTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    // Dynamic color is available on Android 12+ (disabled to use VibeTTY brand colors)
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {

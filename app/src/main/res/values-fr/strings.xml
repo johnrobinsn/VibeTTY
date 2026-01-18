@@ -312,7 +312,7 @@
   <string name="dialog_title_edit_color">Éditer la couleur %1$d</string>
   <string name="dialog_title_reset_all">Réinitialiser toutes les couleurs</string>
   <string name="dialog_message_reset_all">Ceci réinitialisera les 256 couleurs à leurs valeurs par défaut Cette action ne peut pas être annulée</string>
-  <string name="app_is_running">ConnectBot est en cours</string>
+  <string name="app_is_running">VibeTTY est en cours</string>
   <string name="label_red">Rouge</string>
   <string name="label_green">Vert</string>
   <string name="label_blue">Bleu</string>
@@ -447,7 +447,7 @@
   <string name="logs_title">Journaux d application</string>
   <string name="copy_logs">Copier les journaux</string>
   <string name="logs_copied">Journaux copiés dans le presse-papiers</string>
-  <string name="logs_bug_report_info">Pour signaler un bogue copiez ces journaux et ouvrez une nouvelle question à https://connectbot.org/bug</string>
+  <string name="logs_bug_report_info">Pour signaler un bogue copiez ces journaux et ouvrez une nouvelle question à https://github.com/johnrobinsn/VibeTTY/issues</string>
   <string name="no_logs_available">Aucuns journaux disponibles</string>
   <string name="help_section_about">A propos</string>
   <string name="colorscheme_default_description">Couleurs du terminal par défaut</string>

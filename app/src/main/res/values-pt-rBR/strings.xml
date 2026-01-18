@@ -312,7 +312,7 @@
   <string name="dialog_title_edit_color">Editar Cor %1$d</string>
   <string name="dialog_title_reset_all">Reiniciar todas as cores?</string>
   <string name="dialog_message_reset_all">Isso irá reiniciar todos os 256 cores para seus valores padrão. Esta ação não pode ser desfeita.</string>
-  <string name="app_is_running">ConnectBot está executando</string>
+  <string name="app_is_running">VibeTTY está executando</string>
   <string name="label_red">Vermelho</string>
   <string name="label_green">Verde</string>
   <string name="label_blue">Azul</string>
@@ -447,7 +447,7 @@
   <string name="logs_title">Registros do Aplicativo</string>
   <string name="copy_logs">Copiar Registros</string>
   <string name="logs_copied">Registros copiados para a área de transferência</string>
-  <string name="logs_bug_report_info">Para relatar um bug, copie esses registros e abra uma nova questão em https://connectbot.org/bug</string>
+  <string name="logs_bug_report_info">Para relatar um bug, copie esses registros e abra uma nova questão em https://github.com/johnrobinsn/VibeTTY/issues</string>
   <string name="no_logs_available">Nenhum log disponível</string>
   <string name="help_section_about">Sobre</string>
   <string name="colorscheme_default_description">Cores de terminal padrão</string>

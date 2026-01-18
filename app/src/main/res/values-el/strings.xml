@@ -181,7 +181,7 @@
   <string name="no">Όχι</string>
   <string name="yes">Ναι</string>
   <string name="menu_colors_reset">Επαναφορά</string>
-  <string name="app_is_running">Εκτελείται το ConnectBot</string>
+  <string name="app_is_running">Εκτελείται το VibeTTY</string>
   <string name="colors_fg_label">ΧΓ: %1$d</string>
   <string name="color_bg_label">ΧΠ: %1$d</string>
   <string name="image_description_connected">Έγινε σύνδεση.</string>

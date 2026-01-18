@@ -4,68 +4,29 @@
     android:viewportWidth="108"
     android:viewportHeight="108">
 
-  <!-- Outer vibe wave (left) -->
+  <!-- Chevron > symbol - Teal 600 -->
   <path
-      android:pathData="M24,38 Q30,54 24,70"
-      android:strokeColor="#00d4ff"
-      android:strokeWidth="2.5"
-      android:strokeAlpha="0.4"
+      android:pathData="M36,40 L54,54 L36,68"
+      android:strokeColor="#00897B"
+      android:strokeWidth="7"
+      android:strokeLineCap="round"
+      android:strokeLineJoin="round"
       android:fillColor="#00000000"/>
 
-  <!-- Outer vibe wave (right) -->
+  <!-- Underscore cursor _ - Bright mint -->
   <path
-      android:pathData="M84,38 Q78,54 84,70"
-      android:strokeColor="#00d4ff"
-      android:strokeWidth="2.5"
-      android:strokeAlpha="0.4"
-      android:fillColor="#00000000"/>
-
-  <!-- Middle vibe wave (left) -->
-  <path
-      android:pathData="M30,42 Q35,54 30,66"
-      android:strokeColor="#00d4ff"
-      android:strokeWidth="2.5"
-      android:strokeAlpha="0.6"
-      android:fillColor="#00000000"/>
-
-  <!-- Middle vibe wave (right) -->
-  <path
-      android:pathData="M78,42 Q73,54 78,66"
-      android:strokeColor="#00d4ff"
-      android:strokeWidth="2.5"
-      android:strokeAlpha="0.6"
-      android:fillColor="#00000000"/>
-
-  <!-- Main V shape - left stroke with wave curve -->
-  <path
-      android:pathData="M38,32 Q46,50 54,68"
-      android:strokeColor="#00d4ff"
-      android:strokeWidth="5"
+      android:pathData="M58,66 L74,66"
+      android:strokeColor="#64FFDA"
+      android:strokeWidth="6"
       android:strokeLineCap="round"
       android:fillColor="#00000000"/>
 
-  <!-- Main V shape - right stroke with wave curve -->
+  <!-- Subtle glow under cursor -->
   <path
-      android:pathData="M70,32 Q62,50 54,68"
-      android:strokeColor="#00d4ff"
-      android:strokeWidth="5"
-      android:strokeLineCap="round"
-      android:fillColor="#00000000"/>
-
-  <!-- Terminal cursor (blinking underscore) -->
-  <path
-      android:pathData="M46,76 L62,76"
-      android:strokeColor="#e94560"
-      android:strokeWidth="4"
-      android:strokeLineCap="round"
-      android:fillColor="#00000000"/>
-
-  <!-- Glow effect under cursor -->
-  <path
-      android:pathData="M46,76 L62,76"
-      android:strokeColor="#e94560"
-      android:strokeWidth="8"
-      android:strokeAlpha="0.3"
+      android:pathData="M58,66 L74,66"
+      android:strokeColor="#64FFDA"
+      android:strokeWidth="12"
+      android:strokeAlpha="0.25"
       android:strokeLineCap="round"
       android:fillColor="#00000000"/>
 

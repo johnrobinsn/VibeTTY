@@ -179,7 +179,7 @@
   <string name="no">Não</string>
   <string name="yes">Sim</string>
   <string name="menu_colors_reset">Repor</string>
-  <string name="app_is_running">O ConnectBot em execução</string>
+  <string name="app_is_running">O VibeTTY em execução</string>
   <string name="colors_fg_label">CP: %1$d</string>
   <string name="color_bg_label">CF: %1$d</string>
   <string name="image_description_connected">Ligado</string>
