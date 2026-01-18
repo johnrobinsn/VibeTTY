@@ -447,7 +447,7 @@
   <string name="logs_title">アプリケーションログ</string>
   <string name="copy_logs">ログのコピー</string>
   <string name="logs_copied">クリップボードにログをコピーしました</string>
-  <string name="logs_bug_report_info">バグを報告するにはこれらのログをコピーしてhttps://connectbot.org/bugで新しい課題を開いてください</string>
+  <string name="logs_bug_report_info">バグを報告するにはこれらのログをコピーしてhttps://github.com/johnrobinsn/VibeTTY/issuesで新しい課題を開いてください</string>
   <string name="no_logs_available">ログは利用できない</string>
   <string name="help_section_about">概要</string>
   <string name="colorscheme_default_description">デフォルトのターミナルカラー</string>

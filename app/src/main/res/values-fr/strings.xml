@@ -447,7 +447,7 @@
   <string name="logs_title">Journaux d application</string>
   <string name="copy_logs">Copier les journaux</string>
   <string name="logs_copied">Journaux copiés dans le presse-papiers</string>
-  <string name="logs_bug_report_info">Pour signaler un bogue copiez ces journaux et ouvrez une nouvelle question à https://connectbot.org/bug</string>
+  <string name="logs_bug_report_info">Pour signaler un bogue copiez ces journaux et ouvrez une nouvelle question à https://github.com/johnrobinsn/VibeTTY/issues</string>
   <string name="no_logs_available">Aucuns journaux disponibles</string>
   <string name="help_section_about">A propos</string>
   <string name="colorscheme_default_description">Couleurs du terminal par défaut</string>

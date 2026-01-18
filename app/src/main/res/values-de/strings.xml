@@ -447,7 +447,7 @@
   <string name="logs_title">Anwendungsprotokolle</string>
   <string name="copy_logs">Kopieren Sie Protokolle</string>
   <string name="logs_copied">Protokolle in die Zwischenablage kopiert</string>
-  <string name="logs_bug_report_info">Um einen Fehler zu melden kopieren Sie diese Protokolle und öffnen Sie ein neues Problem unter https://connectbot.org/bug</string>
+  <string name="logs_bug_report_info">Um einen Fehler zu melden kopieren Sie diese Protokolle und öffnen Sie ein neues Problem unter https://github.com/johnrobinsn/VibeTTY/issues</string>
   <string name="no_logs_available">Keine Protokolle verfügbar</string>
   <string name="help_section_about">Über</string>
   <string name="colorscheme_default_description">Standardterminalfarben</string>

@@ -447,7 +447,7 @@
   <string name="logs_title">Registros de la aplicación</string>
   <string name="copy_logs">Copiar registros</string>
   <string name="logs_copied">Registros copiados al portapapeles</string>
-  <string name="logs_bug_report_info">Para informar de un error copia estos registros y abre una nueva incidencia en https://connectbot.org/bug</string>
+  <string name="logs_bug_report_info">Para informar de un error copia estos registros y abre una nueva incidencia en https://github.com/johnrobinsn/VibeTTY/issues</string>
   <string name="no_logs_available">No registros disponibles</string>
   <string name="help_section_about">Acerca de</string>
   <string name="colorscheme_default_description">Colores de terminal predeterminados</string>

@@ -447,7 +447,7 @@
   <string name="logs_title">Dzienniki aplikacji</string>
   <string name="copy_logs">Kopiuj dzienniki</string>
   <string name="logs_copied">Dzienniki skopiowane do schowka</string>
-  <string name="logs_bug_report_info">Aby zgłosić błąd, skopiuj te logi i otwórz nowy problem pod adresem https://connectbot.org/bug</string>
+  <string name="logs_bug_report_info">Aby zgłosić błąd, skopiuj te logi i otwórz nowy problem pod adresem https://github.com/johnrobinsn/VibeTTY/issues</string>
   <string name="no_logs_available">Brak dostępnych logów</string>
   <string name="help_section_about">O VibeTTY jest aplikacją SSH dla systemu Android która pozwala uzytkownikom na uzycie Secure Shell Telnet lub lokalnej powloki aby polaczyc sie z zdalnymi serwerami oraz lokalnym systemem poprzez okreslenie hosta portu i nazwy uzytkownika do polaczenia. Zawiera rowniez emulator terminala ktorym uzytkownicy moga uzyc do interakcji ze zdalna lub lokalna powloka</string>
   <string name="colorscheme_default_description">Domyślne kolory terminala</string>
