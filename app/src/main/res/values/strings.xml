@@ -1082,6 +1082,26 @@
 	<!-- Content description for disabled port forward visual indicator -->
 	<string name="portforward_disabled">Port forward disabled</string>
 
+	<!-- ADB Discovery dialog strings -->
+	<!-- Dialog title for ADB port discovery -->
+	<string name="adb_discovery_title">Wireless ADB</string>
+	<!-- Shown while scanning for ADB port -->
+	<string name="adb_discovery_scanning">Scanning for ADB port…</string>
+	<!-- Shown when ADB port is not found -->
+	<string name="adb_discovery_not_found">No ADB port found. Is wireless debugging enabled?</string>
+	<!-- Shows discovered ADB port number -->
+	<string name="adb_discovery_port">ADB Port: %d</string>
+	<!-- Shows WiFi IP address -->
+	<string name="adb_discovery_ip">WiFi IP: %s</string>
+	<!-- Shown when not connected to WiFi -->
+	<string name="adb_discovery_no_wifi">Not connected to WiFi</string>
+	<!-- Content description for copy button -->
+	<string name="adb_discovery_copy">Copy command</string>
+	<!-- Toast message when command is copied -->
+	<string name="adb_discovery_copied">Copied to clipboard</string>
+	<!-- Button to create port forward mapping -->
+	<string name="adb_discovery_create_mapping">Create Mapping</string>
+
 	<!-- Label for spinner which allows user to select SSH/Telnet/Local. -->
 	<string name="protocol_spinner_label">Protocol</string>
 	<!-- Label for button which expands/collapses section. -->

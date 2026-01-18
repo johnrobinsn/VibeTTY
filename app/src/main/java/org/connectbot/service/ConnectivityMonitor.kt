@@ -129,6 +129,18 @@ class ConnectivityMonitor(
     fun getCurrentNetworkInfo(): NetworkInfo? = currentNetworkInfo
 
     /**
+     * Get the WiFi IP address if connected via WiFi.
+     *
+     * @return IPv4 address string, or null if not connected to WiFi
+     */
+    fun getWifiIpAddress(): String? {
+        val networkInfo = currentNetworkInfo ?: return null
+        if (networkInfo.networkType != NetworkCapabilities.TRANSPORT_WIFI) return null
+        return networkInfo.ipAddresses
+            .firstOrNull { !it.contains(":") && it != "127.0.0.1" }
+    }
+
+    /**
      * Update network info based on current active network.
      */
     private fun updateNetworkInfo(network: Network, linkProperties: LinkProperties? = null) {

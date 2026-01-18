@@ -38,6 +38,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -95,6 +96,7 @@ fun PortForwardListScreen(
         onUpdatePortForward = viewModel::updatePortForward,
         onEnablePortForward = viewModel::enablePortForward,
         onDisablePortForward = viewModel::disablePortForward,
+        connectivityMonitor = terminalManager?.connectivityMonitor,
         modifier = modifier
     )
 }
@@ -109,10 +111,13 @@ fun PortForwardListScreenContent(
     onUpdatePortForward: (PortForward, String, String, String, String) -> Unit,
     onEnablePortForward: (PortForward) -> Unit,
     onDisablePortForward: (PortForward) -> Unit,
+    connectivityMonitor: org.connectbot.service.ConnectivityMonitor? = null,
     modifier: Modifier = Modifier
 ) {
     var showAddDialog by remember { mutableStateOf(false) }
+    var showAdbDialog by remember { mutableStateOf(false) }
     var editingPortForward by remember { mutableStateOf<PortForward?>(null) }
+    var prefillParams by remember { mutableStateOf<AdbPortForwardParams?>(null) }
     val snackbarHostState = remember { SnackbarHostState() }
 
     // Show snackbar when there's an error
@@ -134,19 +139,30 @@ fun PortForwardListScreenContent(
                     IconButton(onClick = onNavigateBack) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null)
                     }
-                }
+                },
             )
         },
         floatingActionButton = {
-            FloatingActionButton(
-                onClick = { showAddDialog = true },
-                // This matches the FloatingActionButtonMenu padding
-                modifier = Modifier.padding(end = 16.dp, bottom = 16.dp),
+            Column(
+                horizontalAlignment = Alignment.End,
+                verticalArrangement = Arrangement.spacedBy(12.dp),
+                modifier = Modifier.padding(end = 16.dp, bottom = 16.dp)
             ) {
-                Icon(
-                    Icons.Default.Add,
-                    contentDescription = stringResource(R.string.portforward_pos)
+                // ADB Discovery FAB
+                ExtendedFloatingActionButton(
+                    onClick = { showAdbDialog = true },
+                    icon = { Icon(Icons.Default.Add, contentDescription = null) },
+                    text = { Text("ADB") }
                 )
+                // Add port forward FAB
+                FloatingActionButton(
+                    onClick = { showAddDialog = true }
+                ) {
+                    Icon(
+                        Icons.Default.Add,
+                        contentDescription = stringResource(R.string.portforward_pos)
+                    )
+                }
             }
         },
         modifier = modifier.onPreviewKeyEvent { event ->
@@ -212,11 +228,19 @@ fun PortForwardListScreenContent(
 
     if (showAddDialog) {
         PortForwardEditorDialog(
-            onDismiss = { showAddDialog = false },
+            onDismiss = {
+                showAddDialog = false
+                prefillParams = null
+            },
             onSave = { nickname, type, sourcePort, destination ->
                 showAddDialog = false
+                prefillParams = null
                 onAddPortForward(nickname, type, sourcePort, destination)
-            }
+            },
+            initialNickname = prefillParams?.nickname ?: "",
+            initialType = prefillParams?.type ?: "Local",
+            initialSourcePort = prefillParams?.sourcePort ?: "",
+            initialDestination = prefillParams?.destination ?: ""
         )
     }
 
@@ -238,6 +262,17 @@ fun PortForwardListScreenContent(
             initialSourcePort = portForward.sourcePort.toString(),
             initialDestination = initialDest,
             isEditing = true
+        )
+    }
+
+    if (showAdbDialog) {
+        AdbDiscoveryDialog(
+            connectivityMonitor = connectivityMonitor,
+            onDismiss = { showAdbDialog = false },
+            onCreatePortForward = { params ->
+                prefillParams = params
+                showAddDialog = true
+            }
         )
     }
 }
