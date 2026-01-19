@@ -277,6 +277,12 @@
 	<!-- Summary for the titlebar hide preference -->
 	<string name="pref_titlebarhide_summary">"Tap console to show title bar and access menu"</string>
 
+	<!-- Title for the title bar hide delay preference -->
+	<string name="pref_titlebar_hide_delay_title">"Hide delay title bar"</string>
+
+	<!-- Title for the special keys hide delay preference -->
+	<string name="pref_special_keys_hide_delay_title">"Hide delay special keys"</string>
+
 	<!-- Title for special keys always visible preference -->
 	<string name="pref_alwaysvisible_title">Special keys always visible</string>
 

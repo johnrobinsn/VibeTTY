@@ -84,7 +84,9 @@ data class SettingsUiState(
     val backtickAsEscape: Boolean = false,
     val useVibeBar: Boolean = false,
     val voiceInputOverlay: Boolean = false,
-    val adbVerifyProtocol: Boolean = true
+    val adbVerifyProtocol: Boolean = true,
+    val specialKeysHideDelay: Int = 5000,
+    val titlebarHideDelay: Int = 3000
 )
 
 @HiltViewModel
@@ -201,6 +203,14 @@ class SettingsViewModel @Inject constructor(
             adbVerifyProtocol = prefs.getBoolean(
                 PreferenceConstants.ADB_VERIFY_PROTOCOL,
                 PreferenceConstants.ADB_VERIFY_PROTOCOL_DEFAULT
+            ),
+            specialKeysHideDelay = prefs.getInt(
+                PreferenceConstants.SPECIAL_KEYS_HIDE_DELAY,
+                PreferenceConstants.SPECIAL_KEYS_HIDE_DELAY_DEFAULT
+            ),
+            titlebarHideDelay = prefs.getInt(
+                PreferenceConstants.TITLEBAR_HIDE_DELAY,
+                PreferenceConstants.TITLEBAR_HIDE_DELAY_DEFAULT
             )
         )
     }
@@ -381,6 +391,18 @@ class SettingsViewModel @Inject constructor(
     fun updateAdbVerifyProtocol(value: Boolean) {
         updateBooleanPref(PreferenceConstants.ADB_VERIFY_PROTOCOL, value) {
             copy(adbVerifyProtocol = value)
+        }
+    }
+
+    fun updateSpecialKeysHideDelay(value: Int) {
+        updateIntPref(PreferenceConstants.SPECIAL_KEYS_HIDE_DELAY, value) {
+            copy(specialKeysHideDelay = value)
+        }
+    }
+
+    fun updateTitlebarHideDelay(value: Int) {
+        updateIntPref(PreferenceConstants.TITLEBAR_HIDE_DELAY, value) {
+            copy(titlebarHideDelay = value)
         }
     }
 

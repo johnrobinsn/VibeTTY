@@ -25,15 +25,20 @@ import android.provider.Settings
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.FolderOpen
 import androidx.compose.material.icons.filled.FontDownload
+import androidx.compose.material.icons.filled.Remove
 import androidx.compose.material.icons.filled.Terminal
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -56,6 +61,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.input.key.KeyEventType
@@ -64,6 +70,7 @@ import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.input.key.type
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import org.connectbot.BuildConfig
@@ -168,10 +175,12 @@ fun SettingsScreen(
         onRotationChange = viewModel::updateRotation,
         onFullscreenChange = viewModel::updateFullscreen,
         onTitleBarHideChange = viewModel::updateTitleBarHide,
+        onTitlebarHideDelayChange = viewModel::updateTitlebarHideDelay,
         onPgUpDnGestureChange = viewModel::updatePgUpDnGesture,
         onVolumeFontChange = viewModel::updateVolumeFont,
         onKeepAliveChange = viewModel::updateKeepAlive,
         onAlwaysVisibleChange = viewModel::updateAlwaysVisible,
+        onSpecialKeysHideDelayChange = viewModel::updateSpecialKeysHideDelay,
         onForceSoftKeyboardChange = viewModel::updateForceSoftKeyboard,
         onShiftFkeysChange = viewModel::updateShiftFkeys,
         onCtrlFkeysChange = viewModel::updateCtrlFkeys,
@@ -218,10 +227,12 @@ fun SettingsScreenContent(
     onRotationChange: (String) -> Unit,
     onFullscreenChange: (Boolean) -> Unit,
     onTitleBarHideChange: (Boolean) -> Unit,
+    onTitlebarHideDelayChange: (Int) -> Unit,
     onPgUpDnGestureChange: (Boolean) -> Unit,
     onVolumeFontChange: (Boolean) -> Unit,
     onKeepAliveChange: (Boolean) -> Unit,
     onAlwaysVisibleChange: (Boolean) -> Unit,
+    onSpecialKeysHideDelayChange: (Int) -> Unit,
     onForceSoftKeyboardChange: (Boolean) -> Unit,
     onShiftFkeysChange: (Boolean) -> Unit,
     onCtrlFkeysChange: (Boolean) -> Unit,
@@ -440,6 +451,14 @@ fun SettingsScreenContent(
             }
 
             item {
+                DelayStepperPreference(
+                    title = stringResource(R.string.pref_titlebar_hide_delay_title),
+                    delayMs = uiState.titlebarHideDelay,
+                    onDelayChange = onTitlebarHideDelayChange
+                )
+            }
+
+            item {
                 SwitchPreference(
                     title = stringResource(R.string.pref_pg_updn_gesture_title),
                     summary = stringResource(R.string.pref_pg_updn_gesture_summary),
@@ -494,6 +513,14 @@ fun SettingsScreenContent(
                     summary = stringResource(R.string.pref_alwaysvisible_summary),
                     checked = uiState.alwaysvisible,
                     onCheckedChange = onAlwaysVisibleChange
+                )
+            }
+
+            item {
+                DelayStepperPreference(
+                    title = stringResource(R.string.pref_special_keys_hide_delay_title),
+                    delayMs = uiState.specialKeysHideDelay,
+                    onDelayChange = onSpecialKeysHideDelayChange
                 )
             }
 
@@ -1019,6 +1046,68 @@ private fun SliderPreference(
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
+    }
+    HorizontalDivider()
+}
+
+@Composable
+private fun DelayStepperPreference(
+    title: String,
+    delayMs: Int,
+    onDelayChange: (Int) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val delaySeconds = (delayMs / 1000).coerceIn(1, 10)
+
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 12.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = title,
+            style = MaterialTheme.typography.bodyLarge,
+            modifier = Modifier.weight(1f)
+        )
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            IconButton(
+                onClick = {
+                    if (delaySeconds > 1) {
+                        onDelayChange((delaySeconds - 1) * 1000)
+                    }
+                },
+                enabled = delaySeconds > 1
+            ) {
+                Icon(
+                    Icons.Default.Remove,
+                    contentDescription = "Decrease"
+                )
+            }
+            Text(
+                text = "${delaySeconds}s",
+                style = MaterialTheme.typography.bodyLarge,
+                modifier = Modifier.width(32.dp),
+                textAlign = TextAlign.Center
+            )
+            IconButton(
+                onClick = {
+                    if (delaySeconds < 10) {
+                        onDelayChange((delaySeconds + 1) * 1000)
+                    }
+                },
+                enabled = delaySeconds < 10
+            ) {
+                Icon(
+                    Icons.Default.Add,
+                    contentDescription = "Increase"
+                )
+            }
+        }
     }
     HorizontalDivider()
 }
@@ -1579,10 +1668,12 @@ private fun SettingsScreenPreview() {
             onRotationChange = {},
             onFullscreenChange = {},
             onTitleBarHideChange = {},
+            onTitlebarHideDelayChange = {},
             onPgUpDnGestureChange = {},
             onVolumeFontChange = {},
             onKeepAliveChange = {},
             onAlwaysVisibleChange = {},
+            onSpecialKeysHideDelayChange = {},
             onForceSoftKeyboardChange = {},
             onShiftFkeysChange = {},
             onCtrlFkeysChange = {},

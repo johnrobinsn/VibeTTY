@@ -115,4 +115,12 @@ object PreferenceConstants {
     /* ADB port discovery protocol verification */
     const val ADB_VERIFY_PROTOCOL: String = "adbVerifyProtocol"
     const val ADB_VERIFY_PROTOCOL_DEFAULT: Boolean = true
+
+    /* Auto-hide delay for special keys panel */
+    const val SPECIAL_KEYS_HIDE_DELAY: String = "specialKeysHideDelay"
+    const val SPECIAL_KEYS_HIDE_DELAY_DEFAULT: Int = 5000  // 5 seconds in milliseconds
+
+    /* Auto-hide delay for title bar */
+    const val TITLEBAR_HIDE_DELAY: String = "titlebarHideDelay"
+    const val TITLEBAR_HIDE_DELAY_DEFAULT: Int = 3000  // 3 seconds in milliseconds
 }

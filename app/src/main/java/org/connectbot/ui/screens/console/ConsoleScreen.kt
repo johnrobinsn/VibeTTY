@@ -190,6 +190,18 @@ fun ConsoleScreen(
             PreferenceConstants.VOICE_INPUT_OVERLAY_DEFAULT
         )
     }
+    val specialKeysHideDelay = remember {
+        prefs.getInt(
+            PreferenceConstants.SPECIAL_KEYS_HIDE_DELAY,
+            PreferenceConstants.SPECIAL_KEYS_HIDE_DELAY_DEFAULT
+        )
+    }
+    val titlebarHideDelay = remember {
+        prefs.getInt(
+            PreferenceConstants.TITLEBAR_HIDE_DELAY,
+            PreferenceConstants.TITLEBAR_HIDE_DELAY_DEFAULT
+        )
+    }
 
     // Keyboard state
     val hasHardwareKeyboard = rememberHasHardwareKeyboard()
@@ -293,21 +305,20 @@ fun ConsoleScreen(
         wasBiometricPromptActive = isBiometricPromptActive
     }
 
-    // Unified auto-hide timer for both keyboard and title bar
-    LaunchedEffect(lastInteractionTime, keyboardAlwaysVisible, titleBarHide) {
-        // Only run the timer if there's something to auto-hide
-        if (!keyboardAlwaysVisible || titleBarHide) {
-            delay(3000)
-            // Hide keyboard if not always visible
-            if (!keyboardAlwaysVisible) {
-                showExtraKeyboard = false
-            }
-            // Hide title bar if auto-hide is enabled
-            if (titleBarHide) {
-                showTitleBar = false
-            }
-            // Mark animation as played after first timeout
+    // Auto-hide timer for special keys panel
+    LaunchedEffect(lastInteractionTime, keyboardAlwaysVisible, specialKeysHideDelay) {
+        if (!keyboardAlwaysVisible) {
+            delay(specialKeysHideDelay.toLong())
+            showExtraKeyboard = false
             hasPlayedKeyboardAnimation = true
+        }
+    }
+
+    // Auto-hide timer for title bar
+    LaunchedEffect(lastInteractionTime, titleBarHide, titlebarHideDelay) {
+        if (titleBarHide) {
+            delay(titlebarHideDelay.toLong())
+            showTitleBar = false
         }
     }
 
