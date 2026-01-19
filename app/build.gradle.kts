@@ -47,7 +47,7 @@ android {
             .toInt()
 
     defaultConfig {
-        applicationId = "org.connectbot"
+        applicationId = "com.vibetty.app"
 
         minSdk =
             libs.versions.minSdk
@@ -65,7 +65,7 @@ android {
             debugSymbolLevel = "full"
         }
 
-        testApplicationId = "org.connectbot.tests"
+        testApplicationId = "com.vibetty.app.tests"
         testInstrumentationRunner = "org.connectbot.HiltTestRunner"
 
         // The following argument makes the Android Test Orchestrator run its
