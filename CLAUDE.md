@@ -15,6 +15,16 @@ ADB=/home/jr/Android/Sdk/platform-tools/adb
 $ADB -s R5CW11Z9QEK install -r app/build/outputs/apk/google/debug/app-google-debug.apk
 ```
 
+### Port-Forwarded ADB via VibeTTY
+
+When deploying to `localhost:5550`, this is a port-forwarded connection through VibeTTY itself to the user's remote phone. Important notes:
+
+- **Connection drops on deploy**: Since VibeTTY is the app being deployed, the connection will drop when the app restarts after installation
+- **Installs still work**: The install typically succeeds even though the connection drops afterward
+- **Don't retry blindly**: After deploying, trust that it worked and ask the user to confirm when the app is back up
+- **Manual restart required**: The user has to manually restart VibeTTY on their phone to restore the port forward
+- **Pattern recognition**: If using `localhost:5550`, assume this port-forwarded setup is in use
+
 ## Build Commands
 
 ```bash

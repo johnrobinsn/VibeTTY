@@ -107,4 +107,12 @@ object PreferenceConstants {
     /* VibeBar alternate keyboard panel */
     const val USE_VIBE_BAR: String = "useVibeBar"
     const val USE_VIBE_BAR_DEFAULT: Boolean = false
+
+    /* Voice input overlay for composing text */
+    const val VOICE_INPUT_OVERLAY: String = "voiceInputOverlay"
+    const val VOICE_INPUT_OVERLAY_DEFAULT: Boolean = false
+
+    /* ADB port discovery protocol verification */
+    const val ADB_VERIFY_PROTOCOL: String = "adbVerifyProtocol"
+    const val ADB_VERIFY_PROTOCOL_DEFAULT: Boolean = true
 }

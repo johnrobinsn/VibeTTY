@@ -1261,6 +1261,14 @@
 	<string name="pref_use_vibe_bar_title">Use VibeBar</string>
 	<!-- Summary text for VibeBar setting -->
 	<string name="pref_use_vibe_bar_summary">Compact keyboard panel with Ctrl+Alt combos for vibe coding</string>
+	<!-- Title for Google Voice keyboard support setting -->
+	<string name="pref_voice_input_overlay_title">Support Google Voice keyboard</string>
+	<!-- Summary text for Google Voice keyboard support setting -->
+	<string name="pref_voice_input_overlay_summary">Enable special handling for voice input and dictation</string>
+	<!-- Title for ADB protocol verification setting -->
+	<string name="pref_adb_verify_protocol_title">Verify ADB protocol</string>
+	<!-- Summary text for ADB protocol verification setting -->
+	<string name="pref_adb_verify_protocol_summary">Use protocol handshake to verify ADB ports during discovery</string>
 	<!-- Title for force soft keyboard setting -->
 	<string name="pref_forcesoftkeyboard_title">Force software keyboard</string>
 	<!-- Summary text for force soft keyboard setting -->

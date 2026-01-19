@@ -75,4 +75,23 @@ interface PortForwardDao {
      */
     @Query("DELETE FROM port_forwards WHERE host_id = :hostId")
     suspend fun deleteByHost(hostId: Long)
+
+    /**
+     * Update the enabled state of a port forward.
+     */
+    @Query("UPDATE port_forwards SET enabled = :enabled WHERE id = :id")
+    suspend fun updateEnabled(id: Long, enabled: Boolean)
+
+    /**
+     * Disable all port forwards with a given nickname for a host.
+     * Used to disable old "adb" port forwards when creating a new one.
+     */
+    @Query("UPDATE port_forwards SET enabled = 0 WHERE host_id = :hostId AND nickname = :nickname")
+    suspend fun disableByNickname(hostId: Long, nickname: String)
+
+    /**
+     * Get all port forwards with a specific nickname for a host.
+     */
+    @Query("SELECT * FROM port_forwards WHERE host_id = :hostId AND nickname = :nickname")
+    suspend fun getByNickname(hostId: Long, nickname: String): List<PortForward>
 }

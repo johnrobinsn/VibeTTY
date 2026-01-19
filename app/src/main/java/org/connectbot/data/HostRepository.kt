@@ -213,6 +213,38 @@ class HostRepository @Inject constructor(
         portForwardDao.delete(portForward)
     }
 
+    /**
+     * Update the enabled state of a port forward.
+     *
+     * @param id The port forward ID
+     * @param enabled The new enabled state
+     */
+    suspend fun updatePortForwardEnabled(id: Long, enabled: Boolean) {
+        portForwardDao.updateEnabled(id, enabled)
+    }
+
+    /**
+     * Disable all port forwards with a given nickname for a host.
+     * Used to disable old "adb" port forwards when creating a new one.
+     *
+     * @param hostId The host ID
+     * @param nickname The nickname to match
+     */
+    suspend fun disablePortForwardsByNickname(hostId: Long, nickname: String) {
+        portForwardDao.disableByNickname(hostId, nickname)
+    }
+
+    /**
+     * Get all port forwards with a specific nickname for a host.
+     *
+     * @param hostId The host ID
+     * @param nickname The nickname to match
+     * @return List of matching port forwards
+     */
+    suspend fun getPortForwardsByNickname(hostId: Long, nickname: String): List<PortForward> {
+        return portForwardDao.getByNickname(hostId, nickname)
+    }
+
     // ============================================================================
     // Known Host Operations
     // ============================================================================

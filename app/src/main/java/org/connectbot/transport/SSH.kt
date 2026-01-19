@@ -577,6 +577,10 @@ class SSH :
         authenticated = true
 
         for (portForward in portForwards) {
+            // Only enable port forwards that were previously enabled (persisted state)
+            if (!portForward.enabledPersisted) {
+                continue
+            }
             try {
                 enablePortForward(portForward)
                 bridge?.outputLine(manager?.res?.getString(R.string.terminal_enable_portfoward, portForward.getDescription()))

@@ -184,6 +184,12 @@ fun ConsoleScreen(
             PreferenceConstants.USE_VIBE_BAR_DEFAULT
         )
     }
+    val voiceInputOverlay = remember {
+        prefs.getBoolean(
+            PreferenceConstants.VOICE_INPUT_OVERLAY,
+            PreferenceConstants.VOICE_INPUT_OVERLAY_DEFAULT
+        )
+    }
 
     // Keyboard state
     val hasHardwareKeyboard = rememberHasHardwareKeyboard()
@@ -489,7 +495,8 @@ fun ConsoleScreen(
                             // Virtual width: only enable when not using forced size
                             virtualWidthColumns = if (virtualWidthEnabled && forceSize == null) virtualWidthColumns else null,
                             horizontalScrollIndicatorBottomOffset = 0.dp,
-                            backtickAsEscape = backtickAsEscape
+                            backtickAsEscape = backtickAsEscape,
+                            enableComposingOverlay = voiceInputOverlay
                         )
 
                         // Set up text input request callback from bridge (for camera button)

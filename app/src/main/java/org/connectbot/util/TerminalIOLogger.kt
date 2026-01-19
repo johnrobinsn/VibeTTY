@@ -153,13 +153,11 @@ object TerminalIOLogger {
     /**
      * Get system property using reflection (works on Android).
      */
-    private fun getSystemProperty(name: String): String? {
-        return try {
-            val clazz = Class.forName("android.os.SystemProperties")
-            val method = clazz.getMethod("get", String::class.java)
-            method.invoke(null, name) as? String
-        } catch (e: Exception) {
-            null
-        }
+    private fun getSystemProperty(name: String): String? = try {
+        val clazz = Class.forName("android.os.SystemProperties")
+        val method = clazz.getMethod("get", String::class.java)
+        method.invoke(null, name) as? String
+    } catch (e: Exception) {
+        null
     }
 }
