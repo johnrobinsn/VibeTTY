@@ -82,7 +82,9 @@ data class SettingsUiState(
     val rememberOrientationFontSize: Boolean = true,
     val kittyKeyboardProtocol: Boolean = false,
     val backtickAsEscape: Boolean = false,
-    val useVibeBar: Boolean = false
+    val useVibeBar: Boolean = false,
+    val voiceInputOverlay: Boolean = false,
+    val adbVerifyProtocol: Boolean = true
 )
 
 @HiltViewModel
@@ -191,6 +193,14 @@ class SettingsViewModel @Inject constructor(
             useVibeBar = prefs.getBoolean(
                 PreferenceConstants.USE_VIBE_BAR,
                 PreferenceConstants.USE_VIBE_BAR_DEFAULT
+            ),
+            voiceInputOverlay = prefs.getBoolean(
+                PreferenceConstants.VOICE_INPUT_OVERLAY,
+                PreferenceConstants.VOICE_INPUT_OVERLAY_DEFAULT
+            ),
+            adbVerifyProtocol = prefs.getBoolean(
+                PreferenceConstants.ADB_VERIFY_PROTOCOL,
+                PreferenceConstants.ADB_VERIFY_PROTOCOL_DEFAULT
             )
         )
     }
@@ -359,6 +369,18 @@ class SettingsViewModel @Inject constructor(
     fun updateUseVibeBar(value: Boolean) {
         updateBooleanPref(PreferenceConstants.USE_VIBE_BAR, value) {
             copy(useVibeBar = value)
+        }
+    }
+
+    fun updateVoiceInputOverlay(value: Boolean) {
+        updateBooleanPref(PreferenceConstants.VOICE_INPUT_OVERLAY, value) {
+            copy(voiceInputOverlay = value)
+        }
+    }
+
+    fun updateAdbVerifyProtocol(value: Boolean) {
+        updateBooleanPref(PreferenceConstants.ADB_VERIFY_PROTOCOL, value) {
+            copy(adbVerifyProtocol = value)
         }
     }
 

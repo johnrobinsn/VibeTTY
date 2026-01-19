@@ -189,6 +189,8 @@ fun SettingsScreen(
         onKittyKeyboardProtocolChange = viewModel::updateKittyKeyboardProtocol,
         onBacktickAsEscapeChange = viewModel::updateBacktickAsEscape,
         onUseVibeBarChange = viewModel::updateUseVibeBar,
+        onVoiceInputOverlayChange = viewModel::updateVoiceInputOverlay,
+        onAdbVerifyProtocolChange = viewModel::updateAdbVerifyProtocol,
         modifier = modifier
     )
 }
@@ -237,6 +239,8 @@ fun SettingsScreenContent(
     onKittyKeyboardProtocolChange: (Boolean) -> Unit,
     onBacktickAsEscapeChange: (Boolean) -> Unit,
     onUseVibeBarChange: (Boolean) -> Unit,
+    onVoiceInputOverlayChange: (Boolean) -> Unit,
+    onAdbVerifyProtocolChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Scaffold(
@@ -499,6 +503,24 @@ fun SettingsScreenContent(
                     summary = stringResource(R.string.pref_use_vibe_bar_summary),
                     checked = uiState.useVibeBar,
                     onCheckedChange = onUseVibeBarChange
+                )
+            }
+
+            item {
+                SwitchPreference(
+                    title = stringResource(R.string.pref_voice_input_overlay_title),
+                    summary = stringResource(R.string.pref_voice_input_overlay_summary),
+                    checked = uiState.voiceInputOverlay,
+                    onCheckedChange = onVoiceInputOverlayChange
+                )
+            }
+
+            item {
+                SwitchPreference(
+                    title = stringResource(R.string.pref_adb_verify_protocol_title),
+                    summary = stringResource(R.string.pref_adb_verify_protocol_summary),
+                    checked = uiState.adbVerifyProtocol,
+                    onCheckedChange = onAdbVerifyProtocolChange
                 )
             }
 
@@ -1577,7 +1599,9 @@ private fun SettingsScreenPreview() {
             onRememberOrientationFontSizeChange = {},
             onKittyKeyboardProtocolChange = {},
             onBacktickAsEscapeChange = {},
-            onUseVibeBarChange = {}
+            onUseVibeBarChange = {},
+            onVoiceInputOverlayChange = {},
+            onAdbVerifyProtocolChange = {}
         )
     }
 }
