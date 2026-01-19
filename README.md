@@ -19,6 +19,7 @@ VibeTTY builds upon ConnectBot's excellent foundation, adding enhancements focus
 - **Force Software Keyboard Option**: Show soft keyboard even when hardware keyboard is detected
 - **Toggle Keyboard/Title Bar**: Tap the terminal to toggle UI visibility
 - **Per-orientation Font Sizes**: Remember different font sizes for portrait and landscape
+- **Google Voice Keyboard Support**: Dictate commands hands-free using Google's voice input
 
 See [NEW_FEATURES.md](NEW_FEATURES.md) for implementation details, [FAQ.md](FAQ.md) for common questions, and [docs/](docs/) for technical documentation.
 

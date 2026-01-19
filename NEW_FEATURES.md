@@ -93,6 +93,31 @@ Hardware keyboard navigation support throughout the app with Escape key to go ba
 
 ---
 
+## Google Voice Keyboard Support
+
+**Status:** Complete
+**Files:**
+- `app/src/main/java/org/connectbot/ui/screens/console/ConsoleScreen.kt`
+- `termlib/lib/src/main/java/org/connectbot/terminal/ImeInputView.kt`
+
+**Description:**
+VibeTTY supports Google Voice typing for hands-free command input. Users can dictate commands, file paths, and text directly into the terminal using Android's voice input.
+
+**Features:**
+- Tap microphone icon on Google Keyboard (Gboard) to start voice input
+- Dictated text is sent directly to the terminal
+- Works with any voice-enabled keyboard
+- Useful for long commands, file paths, or when hands are occupied
+
+**Usage:**
+1. Ensure Gboard or another voice-enabled keyboard is active
+2. Tap the terminal to show the keyboard
+3. Tap the microphone icon on the keyboard
+4. Speak your command
+5. Text is inserted at the cursor position
+
+---
+
 ## Backtick Sends Escape
 
 **Status:** Complete
