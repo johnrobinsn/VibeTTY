@@ -128,6 +128,26 @@ class PortForwardListViewModel @Inject constructor(
                     parseDestination(destination)
                 }
 
+                // Disable existing port forwards with the same nickname (e.g., old "adb" mappings)
+                val existingWithSameName = withContext(dispatchers.io) {
+                    repository.getPortForwardsByNickname(hostId, nickname)
+                }
+                if (existingWithSameName.isNotEmpty()) {
+                    withContext(dispatchers.io) {
+                        repository.disablePortForwardsByNickname(hostId, nickname)
+                    }
+                    // Also disable them on the active bridge if connected
+                    withActiveBridge { bridge ->
+                        existingWithSameName.forEach { oldPf ->
+                            val bridgePf = bridge.portForwards.find { it.id == oldPf.id }
+                            if (bridgePf != null && bridgePf.isEnabled()) {
+                                bridge.disablePortForward(bridgePf)
+                                Timber.d("Disabled old port forward ${oldPf.nickname} (id=${oldPf.id})")
+                            }
+                        }
+                    }
+                }
+
                 val newPortForward = withContext(dispatchers.io) {
                     val portForward = PortForward(
                         hostId = hostId,
@@ -135,7 +155,8 @@ class PortForwardListViewModel @Inject constructor(
                         type = type,
                         sourcePort = srcPort,
                         destAddr = parsed.address,
-                        destPort = parsed.port
+                        destPort = parsed.port,
+                        enabledPersisted = true // New port forwards start enabled
                     )
                     repository.savePortForward(portForward)
                 }
@@ -263,6 +284,11 @@ class PortForwardListViewModel @Inject constructor(
                 }
 
                 if (success) {
+                    // Persist the enabled state immediately
+                    withContext(dispatchers.io) {
+                        repository.updatePortForwardEnabled(portForward.id, enable)
+                    }
+
                     val action = if (enable) "enabled" else "disabled"
                     Timber.d("Port forward ${portForward.nickname} $action successfully")
 

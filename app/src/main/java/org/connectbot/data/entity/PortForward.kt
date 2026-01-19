@@ -57,11 +57,14 @@ data class PortForward(
     val destAddr: String?,
 
     @ColumnInfo(name = "dest_port")
-    val destPort: Int
+    val destPort: Int,
+
+    @ColumnInfo(name = "enabled", defaultValue = "0")
+    val enabledPersisted: Boolean = false
 ) {
-    // Transient fields (not stored in database)
+    // Runtime enabled state (may differ from persisted state during session)
     @Transient
-    private var enabled: Boolean = false
+    private var enabled: Boolean = enabledPersisted
 
     @Transient
     private var identifier: Any? = null
