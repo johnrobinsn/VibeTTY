@@ -30,6 +30,17 @@ Traditional terminal emulators on Android were designed for basic SSH access. Vi
 - **Wide terminal content** - Many CLI tools assume 80+ columns; virtual width lets you view them properly on narrow screens
 - **Modern TUI applications** - Improved scroll/pan handling for apps that produce continuous output
 
+## Recommended Keyboard
+
+For the best terminal experience, we recommend pairing VibeTTY with [Unexpected Keyboard](https://github.com/Julow/Unexpected-Keyboard) - a lightweight virtual keyboard originally designed for programmers using Termux.
+
+**Why Unexpected Keyboard?**
+- **Corner-swipe gestures**: Access additional characters by swiping keys toward corners, perfect for programming symbols
+- **Privacy-focused**: No ads, no network requests, fully open-source
+- **Compact yet powerful**: Type special characters without cluttering the screen or switching layouts
+
+Available on [F-Droid](https://f-droid.org/packages/juloo.keyboard2/) and [Google Play](https://play.google.com/store/apps/details?id=juloo.keyboard2).
+
 ## Credits
 
 VibeTTY is built on top of **ConnectBot**, created by Kenny Root and the ConnectBot contributors. We are grateful for their years of work creating such a solid SSH client foundation.
