@@ -30,3 +30,8 @@ build/
 
 # Jenkinsfile-runner
 \.jenkinsfile-runner/
+
+# Release signing
+*.keystore
+*.jks
+keystore.properties

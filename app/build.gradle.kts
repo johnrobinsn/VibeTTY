@@ -4,6 +4,14 @@ import io.github.reactivecircus.appversioning.toSemVer
 import net.ltgt.gradle.errorprone.CheckSeverity
 import net.ltgt.gradle.errorprone.errorprone
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import java.util.Properties
+
+// Load keystore properties if available
+val keystorePropertiesFile = rootProject.file("keystore.properties")
+val keystoreProperties = Properties()
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(keystorePropertiesFile.inputStream())
+}
 
 plugins {
     alias(libs.plugins.android.application)
@@ -93,12 +101,12 @@ android {
     }
 
     signingConfigs {
-        if (project.hasProperty("keystorePassword")) {
+        if (keystoreProperties.getProperty("storePassword") != null) {
             create("release") {
-                storeFile = file(property("keystoreFile") as String)
-                storePassword = property("keystorePassword") as String
-                keyAlias = property("keystoreAlias") as String
-                keyPassword = property("keystorePassword") as String
+                storeFile = rootProject.file(keystoreProperties.getProperty("storeFile"))
+                storePassword = keystoreProperties.getProperty("storePassword")
+                keyAlias = keystoreProperties.getProperty("keyAlias")
+                keyPassword = keystoreProperties.getProperty("keyPassword")
             }
         }
     }
@@ -111,7 +119,7 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard.cfg")
             testProguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard.cfg", "proguard-tests.cfg")
 
-            if (project.hasProperty("keystorePassword")) {
+            if (keystoreProperties.getProperty("storePassword") != null) {
                 signingConfig = signingConfigs.getByName("release")
             }
         }
