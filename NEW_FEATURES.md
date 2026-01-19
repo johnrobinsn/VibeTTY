@@ -56,9 +56,9 @@ Replaces the dropdown font selector with a scrollable list showing live font pre
 
 ---
 
-## VibeBar (Alternate Keyboard Panel)
+## VibeBar (Alternate Keyboard Panel) *(experimental)*
 
-**Status:** Complete
+**Status:** Complete (disabled by default)
 **Files:**
 - `app/src/main/java/org/connectbot/ui/components/VibeBar.kt` (new)
 - `app/src/main/java/org/connectbot/ui/screens/console/ConsoleScreen.kt`
@@ -118,9 +118,9 @@ VibeTTY supports Google Voice typing for hands-free command input. Users can dic
 
 ---
 
-## Backtick Sends Escape
+## Backtick Sends Escape *(experimental)*
 
-**Status:** Complete
+**Status:** Complete (disabled by default)
 **Files:**
 - `app/src/main/java/org/connectbot/util/PreferenceConstants.kt`
 - `app/src/main/java/org/connectbot/ui/screens/settings/SettingsViewModel.kt`
@@ -193,9 +193,9 @@ cat -v
 
 ---
 
-## Virtual Terminal Width
+## Virtual Terminal Width *(experimental)*
 
-**Status:** Working (needs testing)
+**Status:** Working (disabled by default)
 **Files Modified:**
 - `termlib/lib/src/main/java/org/connectbot/terminal/Terminal.kt`
 - `app/src/main/java/org/connectbot/ui/screens/console/ConsoleScreen.kt`
