@@ -97,6 +97,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.preference.PreferenceManager
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.connectbot.R
@@ -211,6 +212,12 @@ fun ConsoleScreen(
             PreferenceConstants.FORCE_SOFT_KEYBOARD_DEFAULT
         )
     }
+    val mouseMode = remember {
+        prefs.getBoolean(
+            PreferenceConstants.MOUSE_MODE,
+            PreferenceConstants.MOUSE_MODE_DEFAULT
+        )
+    }
     // Show keyboard if no hardware keyboard connected, or if force option is enabled
     var showSoftwareKeyboard by remember { mutableStateOf(!hasHardwareKeyboard || forceSoftKeyboard) }
 
@@ -315,8 +322,8 @@ fun ConsoleScreen(
     }
 
     // Auto-hide timer for title bar
-    LaunchedEffect(lastInteractionTime, titleBarHide, titlebarHideDelay) {
-        if (titleBarHide) {
+    LaunchedEffect(lastInteractionTime, titleBarHide, titlebarHideDelay, showMenu) {
+        if (titleBarHide && !showMenu) {
             delay(titlebarHideDelay.toLong())
             showTitleBar = false
         }
@@ -328,6 +335,7 @@ fun ConsoleScreen(
     val disconnected = currentBridge?.isDisconnected == true
     val canForwardPorts = currentBridge?.canFowardPorts() == true
     val snackbarHostState = remember { SnackbarHostState() }
+    val scope = rememberCoroutineScope()
 
     // Initialize forceSize from profile when bridge changes
     LaunchedEffect(currentBridge) {
@@ -378,6 +386,42 @@ fun ConsoleScreen(
     fun handleKeyboardInteraction() {
         // Reset the unified timer to keep keyboard visible
         lastInteractionTime = System.currentTimeMillis()
+    }
+
+    fun handleMouseClick(row: Int, col: Int, button: Int) {
+        // Send SGR mouse encoding: CSI < button ; col ; row M
+        // Button 0 = left click, coordinates are 1-indexed
+        val sequence = "\u001b[<${button};${col + 1};${row + 1}M"
+        scope.launch(Dispatchers.IO) {
+            currentBridge?.transport?.write(sequence.toByteArray())
+        }
+    }
+
+    fun handleMouseScroll(row: Int, col: Int, scrollUp: Boolean) {
+        // Send SGR mouse wheel encoding: CSI < button ; col ; row M
+        // Button 64 = scroll up, button 65 = scroll down, coordinates are 1-indexed
+        val button = if (scrollUp) 64 else 65
+        val sequence = "\u001b[<${button};${col + 1};${row + 1}M"
+        scope.launch(Dispatchers.IO) {
+            currentBridge?.transport?.write(sequence.toByteArray())
+        }
+    }
+
+    fun handleShowKeyboardPanel() {
+        // Show keyboard panel when user swipes up from bottom
+        showExtraKeyboard = true
+        if (titleBarHide) showTitleBar = true
+        lastInteractionTime = System.currentTimeMillis()
+    }
+
+    fun handleHideKeyboardPanel() {
+        // Hide keyboard panel and title bar when user swipes down from top
+        if (!keyboardAlwaysVisible) {
+            showExtraKeyboard = false
+        }
+        if (titleBarHide) {
+            showTitleBar = false
+        }
     }
 
     var titleBarHeight by remember { mutableStateOf(0.dp) }
@@ -507,7 +551,12 @@ fun ConsoleScreen(
                             virtualWidthColumns = if (virtualWidthEnabled && forceSize == null) virtualWidthColumns else null,
                             horizontalScrollIndicatorBottomOffset = 0.dp,
                             backtickAsEscape = backtickAsEscape,
-                            enableComposingOverlay = voiceInputOverlay
+                            enableComposingOverlay = voiceInputOverlay,
+                            // Mouse mode: pass taps as mouse clicks and drags as scroll wheel to terminal apps
+                            onMouseClick = if (mouseMode) { row, col, btn -> handleMouseClick(row, col, btn) } else null,
+                            onMouseScroll = if (mouseMode) { row, col, scrollUp -> handleMouseScroll(row, col, scrollUp) } else null,
+                            onShowKeyboardPanel = { handleShowKeyboardPanel() },
+                            onHideKeyboardPanel = { handleHideKeyboardPanel() }
                         )
 
                         // Set up text input request callback from bridge (for camera button)
@@ -726,7 +775,7 @@ fun ConsoleScreen(
                             expanded = showMenu,
                             onDismissRequest = {
                                 showMenu = false
-                                // Hide title bar again after closing menu if auto-hide is enabled
+                                // Hide title bar immediately after closing menu if auto-hide is enabled
                                 if (titleBarHide) {
                                     showTitleBar = false
                                 }

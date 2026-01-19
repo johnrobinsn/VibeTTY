@@ -1267,6 +1267,10 @@
 	<string name="pref_use_vibe_bar_title">Use VibeBar</string>
 	<!-- Summary text for VibeBar setting -->
 	<string name="pref_use_vibe_bar_summary">Compact keyboard panel with Ctrl+Alt combos for vibe coding</string>
+	<!-- Title for mouse mode setting -->
+	<string name="pref_mouse_mode_title">Mouse mode (experimental)</string>
+	<!-- Summary text for mouse mode setting -->
+	<string name="pref_mouse_mode_summary">Pass taps to terminal as mouse clicks for tmux/vim. Swipe up from bottom to show keyboard.</string>
 	<!-- Title for Google Voice keyboard support setting -->
 	<string name="pref_voice_input_overlay_title">Support Google Voice keyboard</string>
 	<!-- Summary text for Google Voice keyboard support setting -->
