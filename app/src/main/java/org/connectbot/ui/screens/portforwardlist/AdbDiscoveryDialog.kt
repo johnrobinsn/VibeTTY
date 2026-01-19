@@ -55,6 +55,8 @@ import androidx.compose.ui.unit.dp
 import org.connectbot.R
 import org.connectbot.service.ConnectivityMonitor
 import org.connectbot.util.AdbPortScanner
+import org.connectbot.util.PreferenceConstants
+import androidx.preference.PreferenceManager
 
 /**
  * Data class for pre-filled port forward values.
@@ -79,10 +81,15 @@ fun AdbDiscoveryDialog(
     var discoveredPort by remember { mutableStateOf<Int?>(null) }
     var wifiIp by remember { mutableStateOf<String?>(null) }
     val context = LocalContext.current
+    val prefs = remember { PreferenceManager.getDefaultSharedPreferences(context) }
+    val verifyProtocol = prefs.getBoolean(
+        PreferenceConstants.ADB_VERIFY_PROTOCOL,
+        PreferenceConstants.ADB_VERIFY_PROTOCOL_DEFAULT
+    )
 
     LaunchedEffect(Unit) {
         wifiIp = connectivityMonitor?.getWifiIpAddress()
-        discoveredPort = AdbPortScanner.findAdbPort()
+        discoveredPort = AdbPortScanner.findAdbPort(verifyProtocol)
         isScanning = false
     }
 
