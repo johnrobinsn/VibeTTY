@@ -68,6 +68,10 @@ VibeTTY is built on top of **ConnectBot**, created by Kenny Root and the Connect
 - [NEW_FEATURES.md](NEW_FEATURES.md) - Feature details and implementation notes
 - [docs/KITTY_KEYBOARD_PROTOCOL.md](docs/KITTY_KEYBOARD_PROTOCOL.md) - Kitty keyboard protocol technical documentation
 
+## License & Disclaimer
+
+VibeTTY is licensed under the Apache License 2.0. This software is provided "as is" without warranty of any kind. While we strive to maintain security and reliability, bugs may occur. See [PRIVACY_POLICY.md](PRIVACY_POLICY.md) for details on data handling and our full disclaimer.
+
 ## Original ConnectBot
 
 For the original ConnectBot app:

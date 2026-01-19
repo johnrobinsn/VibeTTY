@@ -84,3 +84,9 @@ Enable **"Backtick sends Escape"** in Settings → Keyboard. Then:
 
 VibeTTY hides the soft keyboard when a hardware keyboard is detected. To override this:
 - Enable **"Force software keyboard"** in Settings → Keyboard
+
+---
+
+## Disclaimer
+
+VibeTTY is provided "as is" under the Apache 2.0 License. While we strive to maintain reliable behavior, bugs may occur. See [PRIVACY_POLICY.md](PRIVACY_POLICY.md) for our full disclaimer.

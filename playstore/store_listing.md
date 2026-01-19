@@ -50,6 +50,8 @@ VibeTTY is an open-source SSH client designed for developers who code on mobile.
 
 VibeTTY is free, open-source (Apache 2.0 license), and respects your privacy. No ads, no tracking, no data collection. All your credentials stay on your device.
 
+This software is provided "as is" without warranty. While we strive for reliability and security, bugs may occur. See our privacy policy for full details.
+
 View the source code and contribute:
 https://github.com/johnrobinsn/VibeTTY
 

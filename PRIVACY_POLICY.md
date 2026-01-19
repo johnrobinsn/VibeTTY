@@ -78,6 +78,19 @@ VibeTTY is not designed for or directed at children under 13. We do not knowingl
 
 We may update this privacy policy from time to time. Changes will be posted to the VibeTTY GitHub repository and noted with an updated "Last Updated" date.
 
+## Disclaimer
+
+VibeTTY is provided as open-source software under the Apache 2.0 License. While we strive to implement and maintain the practices described in this policy, this software is provided "as is" without warranty of any kind.
+
+As with any software, bugs, defects, or unforeseen interactions with your device or other applications may occur that could affect the behavior described in this policy. We make reasonable efforts to identify and address such issues, but cannot guarantee that all aspects of this policy will be perfectly upheld at all times.
+
+By using VibeTTY, you acknowledge that:
+- The developers are not liable for any unintended data exposure resulting from software defects
+- You are responsible for maintaining the security of your device and credentials
+- You should keep the app updated to receive security fixes
+
+If you discover any behavior that contradicts this policy, please report it as a security issue on our GitHub repository so we can address it promptly.
+
 ## Open Source
 
 VibeTTY is open-source software. You can review the complete source code at:
