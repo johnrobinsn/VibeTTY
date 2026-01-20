@@ -123,4 +123,8 @@ object PreferenceConstants {
     /* Auto-hide delay for title bar */
     const val TITLEBAR_HIDE_DELAY: String = "titlebarHideDelay"
     const val TITLEBAR_HIDE_DELAY_DEFAULT: Int = 3000  // 3 seconds in milliseconds
+
+    /* Terminal mouse mode - pass taps as mouse clicks to terminal apps */
+    const val MOUSE_MODE: String = "mouseMode"
+    const val MOUSE_MODE_DEFAULT: Boolean = false
 }
