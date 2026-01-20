@@ -75,7 +75,10 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.input.key.KeyEventType
 import androidx.compose.ui.input.key.key
@@ -651,9 +654,20 @@ fun ConsoleScreen(
                         overflow = TextOverflow.Ellipsis
                     )
                 },
-                modifier = Modifier.onSizeChanged {
-                    titleBarHeight = with(density) { it.height.toDp() }
-                },
+                modifier = Modifier
+                    .onSizeChanged {
+                        titleBarHeight = with(density) { it.height.toDp() }
+                    }
+                    .drawWithContent {
+                        drawContent()
+                        // Draw 1px white border along the bottom
+                        drawLine(
+                            color = Color.White,
+                            start = Offset(0f, size.height),
+                            end = Offset(size.width, size.height),
+                            strokeWidth = 1.dp.toPx()
+                        )
+                    },
                 navigationIcon = {
                     IconButton(
                         onClick = onNavigateBack,
@@ -665,15 +679,12 @@ fun ConsoleScreen(
                         )
                     }
                 },
-                colors = if (titleBarHide) {
-                    // Translucent overlay when auto-hide is enabled
-                    TopAppBarDefaults.topAppBarColors(
-                        containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.5f)
-                    )
-                } else {
-                    // Solid color when permanently visible
-                    TopAppBarDefaults.topAppBarColors()
-                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = Color.Black,
+                    titleContentColor = Color.White,
+                    navigationIconContentColor = Color.White,
+                    actionIconContentColor = Color.White
+                ),
                 actions = {
                     // Text Input button
                     IconButton(
