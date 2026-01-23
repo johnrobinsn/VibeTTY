@@ -35,3 +35,8 @@ build/
 *.keystore
 *.jks
 keystore.properties
+
+# Play Store key export
+pepk.jar
+encryption_public_key.pem
+*-key-export.zip
