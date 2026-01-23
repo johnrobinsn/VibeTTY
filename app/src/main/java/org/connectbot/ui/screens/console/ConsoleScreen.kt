@@ -20,6 +20,7 @@ package org.connectbot.ui.screens.console
 import android.app.Activity
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.Intent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
@@ -579,6 +580,10 @@ fun ConsoleScreen(
                                     delay(1000)
                                     snackbarHostState.currentSnackbarData?.dismiss()
                                 }
+                            },
+                            onHyperlinkClick = { url ->
+                                val intent = Intent(Intent.ACTION_VIEW, url.toUri())
+                                context.startActivity(intent)
                             }
                         )
 
