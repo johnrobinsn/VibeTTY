@@ -164,10 +164,12 @@ fun ConsoleScreen(
     var fullscreen by remember { mutableStateOf(prefs.getBoolean("fullscreen", false)) }
     var titleBarHide by remember { mutableStateOf(prefs.getBoolean("titlebarhide", false)) }
     val volumeKeysChangeFontSize = remember { prefs.getBoolean(PreferenceConstants.VOLUME_FONT, true) }
-    val virtualWidthEnabled = remember {
-        prefs.getBoolean(
-            PreferenceConstants.VIRTUAL_WIDTH_ENABLED,
-            PreferenceConstants.VIRTUAL_WIDTH_ENABLED_DEFAULT
+    var virtualWidthEnabled by remember {
+        mutableStateOf(
+            prefs.getBoolean(
+                PreferenceConstants.VIRTUAL_WIDTH_ENABLED,
+                PreferenceConstants.VIRTUAL_WIDTH_ENABLED_DEFAULT
+            )
         )
     }
     val virtualWidthColumns = remember {
@@ -559,7 +561,25 @@ fun ConsoleScreen(
                             onMouseClick = if (mouseMode) { row, col, btn -> handleMouseClick(row, col, btn) } else null,
                             onMouseScroll = if (mouseMode) { row, col, scrollUp -> handleMouseScroll(row, col, scrollUp) } else null,
                             onShowKeyboardPanel = { handleShowKeyboardPanel() },
-                            onHideKeyboardPanel = { handleHideKeyboardPanel() }
+                            onHideKeyboardPanel = { handleHideKeyboardPanel() },
+                            onToggleKeyboard = { showSoftwareKeyboard = !showSoftwareKeyboard },
+                            onToggleVirtualWidth = {
+                                virtualWidthEnabled = !virtualWidthEnabled
+                                prefs.edit().putBoolean(PreferenceConstants.VIRTUAL_WIDTH_ENABLED, virtualWidthEnabled).apply()
+                                coroutineScope.launch {
+                                    // Small delay to let resize complete
+                                    delay(50)
+                                    val cols = bridge.terminalEmulator.dimensions.columns
+                                    val status = if (virtualWidthEnabled) "enabled" else "disabled"
+                                    launch {
+                                        snackbarHostState.showSnackbar(
+                                            message = "Virtual width $status ($cols cols)"
+                                        )
+                                    }
+                                    delay(1000)
+                                    snackbarHostState.currentSnackbarData?.dismiss()
+                                }
+                            }
                         )
 
                         // Set up text input request callback from bridge (for camera button)
