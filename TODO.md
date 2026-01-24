@@ -6,6 +6,7 @@
 
 ## Low Priority
 -[ ] Cleanup graphics and feature graphic (annoying defects)
+-[ ] Fix tmux hyperlink segment persistence - stale segments appear when scrolling in tmux. See [docs/TMUX_HYPERLINK_LIMITATION.md](docs/TMUX_HYPERLINK_LIMITATION.md)
 
 ## Futures (not committed)
 -[ ] Consider someway for an agent to "upgrade the connection" beyond just ssh.  sharing webservers or UI remotely... but then letting us downgrade back to ssh
