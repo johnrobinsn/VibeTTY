@@ -25,6 +25,19 @@ VibeTTY builds upon ConnectBot's excellent foundation, adding enhancements focus
 
 See [NEW_FEATURES.md](NEW_FEATURES.md) for implementation details, [FAQ.md](FAQ.md) for common questions, and [docs/](docs/) for technical documentation.
 
+## Installation
+
+### GitHub Releases (Recommended)
+Download the latest APK from [GitHub Releases](https://github.com/johnrobinsn/VibeTTY/releases).
+
+To install:
+1. Download the APK to your Android device
+2. Enable "Install from unknown sources" if prompted
+3. Open the APK to install
+
+### Google Play Store
+*Coming soon*
+
 ## Why VibeTTY?
 
 Traditional terminal emulators on Android were designed for basic SSH access. VibeTTY is optimized for:

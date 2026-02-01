@@ -1,5 +1,7 @@
 # VibeTTY Play Store Listing
 
+> **Status**: Coming soon to Google Play Store. For now, download from [GitHub Releases](https://github.com/johnrobinsn/VibeTTY/releases).
+
 ## App Name
 VibeTTY
 
