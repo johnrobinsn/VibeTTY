@@ -20,12 +20,16 @@ package org.connectbot.ui.screens.console
 import android.app.Activity
 import android.content.ClipboardManager
 import android.content.Context
+import android.os.Build
+import android.view.WindowManager
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
@@ -35,12 +39,15 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.ime
 import androidx.compose.foundation.layout.imeAnimationTarget
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.union
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ContentPaste
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Keyboard
 import androidx.compose.material.icons.filled.Link
 import androidx.compose.material.icons.filled.LinkOff
 import androidx.compose.material.icons.filled.MoreVert
@@ -96,6 +103,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.edit
 import androidx.core.net.toUri
+import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -253,13 +261,25 @@ fun ConsoleScreen(
 
         try {
             if (fullscreen) {
-                // Enable fullscreen mode - hide system bars
+                // Enable fullscreen mode - extend into cutout/notch area
+                WindowCompat.setDecorFitsSystemWindows(window, false)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                    window.attributes.layoutInDisplayCutoutMode =
+                        WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
+                }
+                // Hide system bars
                 val controller = WindowInsetsControllerCompat(window, window.decorView)
                 controller.hide(WindowInsetsCompat.Type.systemBars())
                 controller.systemBarsBehavior =
                     WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
             } else {
-                // Disable fullscreen mode - show system bars
+                // Disable fullscreen mode - keep edge-to-edge but show bars
+                // Don't call setDecorFitsSystemWindows(true) as Scaffold handles insets
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                    window.attributes.layoutInDisplayCutoutMode =
+                        WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_DEFAULT
+                }
+                // Show system bars
                 val controller = WindowInsetsControllerCompat(window, window.decorView)
                 controller.show(WindowInsetsCompat.Type.systemBars())
             }
@@ -434,8 +454,11 @@ fun ConsoleScreen(
     Scaffold(
         snackbarHost = { SnackbarHost(snackbarHostState) },
         modifier = Modifier.fillMaxSize(),
-        contentWindowInsets = ScaffoldDefaults.contentWindowInsets
-            .union(WindowInsets.imeAnimationTarget)
+        contentWindowInsets = if (fullscreen) {
+            WindowInsets.ime  // Only respect IME insets in fullscreen
+        } else {
+            ScaffoldDefaults.contentWindowInsets.union(WindowInsets.imeAnimationTarget)
+        }
     ) { innerPadding ->
         // Show tabs if multiple terminals
         if (uiState.bridges.size > 1) {
@@ -716,12 +739,24 @@ fun ConsoleScreen(
             val density = LocalDensity.current
             TopAppBar(
                 title = {
-                    Text(
-                        currentBridge?.host?.nickname
-                            ?: stringResource(R.string.console_default_title),
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
-                    )
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text(
+                            currentBridge?.host?.nickname
+                                ?: stringResource(R.string.console_default_title),
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                            modifier = Modifier.weight(1f, fill = false)
+                        )
+                        if (hasHardwareKeyboard) {
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Icon(
+                                Icons.Default.Keyboard,
+                                contentDescription = "Hardware keyboard connected",
+                                modifier = Modifier.size(16.dp),
+                                tint = Color.White.copy(alpha = 0.7f)
+                            )
+                        }
+                    }
                 },
                 modifier = Modifier
                     .onSizeChanged {
@@ -754,6 +789,7 @@ fun ConsoleScreen(
                     navigationIconContentColor = Color.White,
                     actionIconContentColor = Color.White
                 ),
+                windowInsets = if (fullscreen) WindowInsets(0, 0, 0, 0) else TopAppBarDefaults.windowInsets,
                 actions = {
                     // Text Input button
                     IconButton(
@@ -902,6 +938,22 @@ fun ConsoleScreen(
                                 trailingIcon = {
                                     Checkbox(
                                         checked = titleBarHide,
+                                        onCheckedChange = null
+                                    )
+                                }
+                            )
+
+                            // Virtual width toggle
+                            DropdownMenuItem(
+                                text = { Text(stringResource(R.string.pref_virtual_width_title)) },
+                                onClick = {
+                                    showMenu = false
+                                    virtualWidthEnabled = !virtualWidthEnabled
+                                    prefs.edit().putBoolean(PreferenceConstants.VIRTUAL_WIDTH_ENABLED, virtualWidthEnabled).apply()
+                                },
+                                trailingIcon = {
+                                    Checkbox(
+                                        checked = virtualWidthEnabled,
                                         onCheckedChange = null
                                     )
                                 }
