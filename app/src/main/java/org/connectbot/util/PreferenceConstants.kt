@@ -124,7 +124,7 @@ object PreferenceConstants {
     const val TITLEBAR_HIDE_DELAY: String = "titlebarHideDelay"
     const val TITLEBAR_HIDE_DELAY_DEFAULT: Int = 3000  // 3 seconds in milliseconds
 
-    /* Terminal mouse mode - pass taps as mouse clicks to terminal apps */
+    /* Tmux mode - enhanced mouse support for tmux (mouse down/drag/release, right-click) */
     const val MOUSE_MODE: String = "mouseMode"
     const val MOUSE_MODE_DEFAULT: Boolean = false
 }

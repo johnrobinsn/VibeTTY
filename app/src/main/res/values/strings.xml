@@ -394,6 +394,10 @@
 	<!-- Brief summary of the feature that is enabled when the checkbox preference for the receive notifications on terminal bell feature is checked -->
 	<string name="pref_bell_notification_summary">"Send notification when a terminal running in the background sounds a bell."</string>
 
+	<!-- Terminal application notifications (OSC 9/99/777) -->
+	<string name="pref_terminal_notifications_title">"Terminal notifications"</string>
+	<string name="pref_terminal_notifications_summary">"Show notifications from terminal apps (e.g. task completion alerts from Claude Code)"</string>
+
 	<!-- Preference selection to indicate use of right side of keyboard for special shortcuts. -->
 	<string name="list_keymode_right">"Use right-side keys"</string>
 	<!-- Preference selection to indicate use of left side of keyboard for special shortcuts. -->
@@ -1267,10 +1271,14 @@
 	<string name="pref_use_vibe_bar_title">Use VibeBar</string>
 	<!-- Summary text for VibeBar setting -->
 	<string name="pref_use_vibe_bar_summary">Compact keyboard panel with Ctrl+Alt combos for vibe coding</string>
-	<!-- Title for mouse mode setting -->
-	<string name="pref_mouse_mode_title">Mouse mode (experimental)</string>
-	<!-- Summary text for mouse mode setting -->
-	<string name="pref_mouse_mode_summary">Pass taps to terminal as mouse clicks for tmux/vim. Swipe up from bottom to show keyboard.</string>
+	<!-- Title for terminal notifications setting -->
+	<string name="pref_terminal_notifications_title">Terminal notifications</string>
+	<!-- Summary text for terminal notifications setting -->
+	<string name="pref_terminal_notifications_summary">Show notifications from terminal applications (OSC 9/99/777)</string>
+	<!-- Title for tmux mode setting -->
+	<string name="pref_mouse_mode_title">Tmux mode (experimental)</string>
+	<!-- Summary text for tmux mode setting -->
+	<string name="pref_mouse_mode_summary">Enhanced mouse support for tmux: tap to click, hold-drag to select, two-finger tap for right-click, scroll for scrollback.</string>
 	<!-- Title for Google Voice keyboard support setting -->
 	<string name="pref_voice_input_overlay_title">Support Google Voice keyboard</string>
 	<!-- Summary text for Google Voice keyboard support setting -->
