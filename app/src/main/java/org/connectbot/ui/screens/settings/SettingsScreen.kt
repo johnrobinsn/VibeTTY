@@ -192,6 +192,7 @@ fun SettingsScreen(
         onBellVolumeChange = viewModel::updateBellVolume,
         onBellVibrateChange = viewModel::updateBellVibrate,
         onBellNotificationChange = viewModel::updateBellNotification,
+        onTerminalNotificationsChange = viewModel::updateTerminalNotifications,
         onVirtualWidthEnabledChange = viewModel::updateVirtualWidthEnabled,
         onVirtualWidthColumnsChange = viewModel::updateVirtualWidthColumns,
         onRememberOrientationFontSizeChange = viewModel::updateRememberOrientationFontSize,
@@ -245,6 +246,7 @@ fun SettingsScreenContent(
     onBellVolumeChange: (Float) -> Unit,
     onBellVibrateChange: (Boolean) -> Unit,
     onBellNotificationChange: (Boolean) -> Unit,
+    onTerminalNotificationsChange: (Boolean) -> Unit,
     onVirtualWidthEnabledChange: (Boolean) -> Unit,
     onVirtualWidthColumnsChange: (Int) -> Unit,
     onRememberOrientationFontSizeChange: (Boolean) -> Unit,
@@ -716,6 +718,15 @@ fun SettingsScreenContent(
                     summary = stringResource(R.string.pref_bell_notification_summary),
                     checked = uiState.bellNotification,
                     onCheckedChange = onBellNotificationChange
+                )
+            }
+
+            item {
+                SwitchPreference(
+                    title = stringResource(R.string.pref_terminal_notifications_title),
+                    summary = stringResource(R.string.pref_terminal_notifications_summary),
+                    checked = uiState.terminalNotifications,
+                    onCheckedChange = onTerminalNotificationsChange
                 )
             }
         }
@@ -1651,6 +1662,7 @@ private fun SettingsScreenPreview() {
                 bellVolume = 0.75f,
                 bellVibrate = true,
                 bellNotification = false,
+                terminalNotifications = true,
                 fontFamily = "JETBRAINS_MONO",
                 customFonts = listOf("Cascadia Code", "Hack"),
                 customTerminalTypes = listOf("rxvt-unicode", "tmux-256color"),
@@ -1696,6 +1708,7 @@ private fun SettingsScreenPreview() {
             onBellVolumeChange = {},
             onBellVibrateChange = {},
             onBellNotificationChange = {},
+            onTerminalNotificationsChange = {},
             onVirtualWidthEnabledChange = {},
             onVirtualWidthColumnsChange = {},
             onRememberOrientationFontSizeChange = {},

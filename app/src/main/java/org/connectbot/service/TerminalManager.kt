@@ -787,6 +787,20 @@ class TerminalManager :
         }
     }
 
+    /**
+     * Send a system notification triggered by a terminal OSC escape sequence (OSC 9/99/777).
+     * Shows notification when app is in background.
+     */
+    fun sendTerminalNotification(host: Host, title: String?, body: String) {
+        if (!isUiBound && prefs.getBoolean(
+                PreferenceConstants.TERMINAL_NOTIFICATIONS,
+                PreferenceConstants.TERMINAL_NOTIFICATIONS_DEFAULT
+            )
+        ) {
+            connectionNotifier.showTerminalNotification(this, host, title, body)
+        }
+    }
+
     override fun onSharedPreferenceChanged(
         sharedPreferences: SharedPreferences,
         key: String?

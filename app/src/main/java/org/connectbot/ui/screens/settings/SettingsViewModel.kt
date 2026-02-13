@@ -67,6 +67,7 @@ data class SettingsUiState(
     val bellVolume: Float = 0.5f,
     val bellVibrate: Boolean = true,
     val bellNotification: Boolean = false,
+    val terminalNotifications: Boolean = true,
     val fontFamily: String = "SYSTEM_DEFAULT",
     val customFonts: List<String> = emptyList(),
     val customTerminalTypes: List<String> = emptyList(),
@@ -168,6 +169,10 @@ class SettingsViewModel @Inject constructor(
             bellVolume = prefs.getFloat("bellVolume", 0.5f),
             bellVibrate = prefs.getBoolean("bellVibrate", true),
             bellNotification = prefs.getBoolean("bellNotification", false),
+            terminalNotifications = prefs.getBoolean(
+                PreferenceConstants.TERMINAL_NOTIFICATIONS,
+                PreferenceConstants.TERMINAL_NOTIFICATIONS_DEFAULT
+            ),
             fontFamily = prefs.getString("fontFamily", "SYSTEM_DEFAULT") ?: "SYSTEM_DEFAULT",
             customFonts = customFonts,
             customTerminalTypes = customTerminalTypes,
@@ -291,6 +296,12 @@ class SettingsViewModel @Inject constructor(
 
     fun updateBellNotification(value: Boolean) {
         updateBooleanPref("bellNotification", value) { copy(bellNotification = value) }
+    }
+
+    fun updateTerminalNotifications(value: Boolean) {
+        updateBooleanPref(PreferenceConstants.TERMINAL_NOTIFICATIONS, value) {
+            copy(terminalNotifications = value)
+        }
     }
 
     fun updateTitleBarHide(value: Boolean) {

@@ -21,8 +21,11 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -52,6 +55,9 @@ class ConsoleViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(ConsoleUiState())
     val uiState: StateFlow<ConsoleUiState> = _uiState.asStateFlow()
 
+    private val _toastEvents = MutableSharedFlow<String>(replay = 0, extraBufferCapacity = 10)
+    val toastEvents: SharedFlow<String> = _toastEvents.asSharedFlow()
+
     fun setTerminalManager(manager: TerminalManager) {
         if (terminalManager != manager) {
             terminalManager = manager
@@ -60,6 +66,7 @@ class ConsoleViewModel @Inject constructor(
                 manager.bridgesFlow.collect { bridges ->
                     updateBridges(bridges)
                     subscribeToActiveBridgeBells(bridges)
+                    subscribeToActiveBridgeNotifications(bridges)
                 }
             }
 
@@ -89,6 +96,28 @@ class ConsoleViewModel @Inject constructor(
                                 terminalManager?.sendActivityNotification(it)
                             }
                         }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun subscribeToActiveBridgeNotifications(bridges: List<TerminalBridge>) {
+        viewModelScope.launch {
+            bridges.forEach { bridge ->
+                launch {
+                    bridge.notificationEvents.collect { notification ->
+                        val currentIndex = _uiState.value.currentBridgeIndex
+                        val currentBridge = _uiState.value.bridges.getOrNull(currentIndex)
+
+                        if (currentBridge == bridge) {
+                            // Bridge is visible - show a toast
+                            val message = notification.title?.let { "$it: ${notification.body}" }
+                                ?: notification.body
+                            _toastEvents.emit(message)
+                        }
+                        // If not visible, TerminalBridge already called
+                        // manager.sendTerminalNotification() for system notification
                     }
                 }
             }

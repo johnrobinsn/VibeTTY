@@ -67,6 +67,10 @@ object PreferenceConstants {
     const val BELL_NOTIFICATION: String = "bellNotification"
     const val DEFAULT_BELL_VOLUME: Float = 0.25f
 
+    /** Terminal application notifications (OSC 9/99/777) */
+    const val TERMINAL_NOTIFICATIONS: String = "terminalNotifications"
+    const val TERMINAL_NOTIFICATIONS_DEFAULT: Boolean = true
+
     const val CONNECTION_PERSIST: String = "connPersist"
     const val NOTIFICATION_PERMISSION_DENIED: String = "notificationPermissionDenied"
 
@@ -118,11 +122,11 @@ object PreferenceConstants {
 
     /* Auto-hide delay for special keys panel */
     const val SPECIAL_KEYS_HIDE_DELAY: String = "specialKeysHideDelay"
-    const val SPECIAL_KEYS_HIDE_DELAY_DEFAULT: Int = 5000  // 5 seconds in milliseconds
+    const val SPECIAL_KEYS_HIDE_DELAY_DEFAULT: Int = 5000 // 5 seconds in milliseconds
 
     /* Auto-hide delay for title bar */
     const val TITLEBAR_HIDE_DELAY: String = "titlebarHideDelay"
-    const val TITLEBAR_HIDE_DELAY_DEFAULT: Int = 3000  // 3 seconds in milliseconds
+    const val TITLEBAR_HIDE_DELAY_DEFAULT: Int = 3000 // 3 seconds in milliseconds
 
     /* Tmux mode - enhanced mouse support for tmux (mouse down/drag/release, right-click) */
     const val MOUSE_MODE: String = "mouseMode"

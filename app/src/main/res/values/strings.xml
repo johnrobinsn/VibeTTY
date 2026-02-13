@@ -394,10 +394,6 @@
 	<!-- Brief summary of the feature that is enabled when the checkbox preference for the receive notifications on terminal bell feature is checked -->
 	<string name="pref_bell_notification_summary">"Send notification when a terminal running in the background sounds a bell."</string>
 
-	<!-- Terminal application notifications (OSC 9/99/777) -->
-	<string name="pref_terminal_notifications_title">"Terminal notifications"</string>
-	<string name="pref_terminal_notifications_summary">"Show notifications from terminal apps (e.g. task completion alerts from Claude Code)"</string>
-
 	<!-- Preference selection to indicate use of right side of keyboard for special shortcuts. -->
 	<string name="list_keymode_right">"Use right-side keys"</string>
 	<!-- Preference selection to indicate use of left side of keyboard for special shortcuts. -->

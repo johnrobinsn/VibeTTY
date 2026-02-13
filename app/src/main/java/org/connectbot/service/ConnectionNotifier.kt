@@ -33,7 +33,6 @@ import org.connectbot.R
 import org.connectbot.data.entity.Host
 import org.connectbot.ui.MainActivity
 import org.connectbot.util.HostConstants
-
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -52,8 +51,7 @@ class ConnectionNotifier @Inject constructor() {
         PendingIntent.FLAG_UPDATE_CURRENT
     }
 
-    private fun getNotificationManager(context: Context): NotificationManager =
-        context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+    private fun getNotificationManager(context: Context): NotificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
     private fun newNotificationBuilder(context: Context, id: String): NotificationCompat.Builder {
         val builder = NotificationCompat.Builder(context, id)
@@ -156,6 +154,47 @@ class ConnectionNotifier @Inject constructor() {
         getNotificationManager(context).notify(ACTIVITY_NOTIFICATION, newActivityNotification(context, host))
     }
 
+    fun showTerminalNotification(context: Service, host: Host, title: String?, body: String) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val nc = NotificationChannel(
+                TERMINAL_NOTIFICATION_CHANNEL,
+                "Terminal Notifications",
+                NotificationManager.IMPORTANCE_HIGH
+            ).apply {
+                description = "Notifications from terminal applications (OSC escape sequences)"
+            }
+            getNotificationManager(context).createNotificationChannel(nc)
+        }
+
+        val builder = NotificationCompat.Builder(context, TERMINAL_NOTIFICATION_CHANNEL)
+            .setSmallIcon(R.drawable.notification_icon)
+            .setContentTitle(title ?: host.nickname)
+            .setContentText(body)
+            .setAutoCancel(true)
+            .setWhen(System.currentTimeMillis())
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+
+        if (title != null && title != body) {
+            builder.setStyle(NotificationCompat.BigTextStyle().bigText(body))
+        }
+
+        val notificationIntent = Intent(context, MainActivity::class.java).apply {
+            action = Intent.ACTION_VIEW
+            data = host.getUri()
+        }
+
+        val contentIntent = PendingIntent.getActivity(
+            context,
+            TERMINAL_NOTIFICATION_BASE,
+            notificationIntent,
+            pendingIntentFlags
+        )
+        builder.setContentIntent(contentIntent)
+
+        val notificationId = TERMINAL_NOTIFICATION_BASE + (host.id % 50).toInt()
+        getNotificationManager(context).notify(notificationId, builder.build())
+    }
+
     fun showRunningNotification(context: Service) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
             showRunningNotificationWithType(context)
@@ -182,6 +221,8 @@ class ConnectionNotifier @Inject constructor() {
         private const val ONLINE_NOTIFICATION = 1
         private const val ACTIVITY_NOTIFICATION = 2
         private const val ONLINE_DISCONNECT_NOTIFICATION = 3
+        private const val TERMINAL_NOTIFICATION_BASE = 100
         private const val NOTIFICATION_CHANNEL = "my_connectbot_channel"
+        private const val TERMINAL_NOTIFICATION_CHANNEL = "terminal_notification_channel"
     }
 }

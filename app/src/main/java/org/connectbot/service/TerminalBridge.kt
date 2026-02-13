@@ -132,6 +132,18 @@ class TerminalBridge {
     private val _bellEvents = MutableSharedFlow<Unit>(replay = 0, extraBufferCapacity = 10)
     val bellEvents: SharedFlow<Unit> = _bellEvents.asSharedFlow()
 
+    data class TerminalNotification(
+        val title: String?,
+        val body: String,
+        val urgency: Int
+    )
+
+    private val _notificationEvents = MutableSharedFlow<TerminalNotification>(
+        replay = 0,
+        extraBufferCapacity = 10
+    )
+    val notificationEvents: SharedFlow<TerminalNotification> = _notificationEvents.asSharedFlow()
+
     private var disconnected = false
     private var awaitingClose = false
 
@@ -251,6 +263,13 @@ class TerminalBridge {
                 Timber.i("OSC 52 clipboard copy: ${text.length} chars")
                 val clipboard = manager.getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager
                 clipboard?.setPrimaryClip(ClipData.newPlainText("terminal", text))
+            },
+            onNotification = { title, body, urgency ->
+                Timber.i("Terminal notification: title='$title', body='$body', urgency=$urgency")
+                scope.launch {
+                    _notificationEvents.emit(TerminalNotification(title, body, urgency))
+                }
+                manager.sendTerminalNotification(host, title, body)
             }
         )
 

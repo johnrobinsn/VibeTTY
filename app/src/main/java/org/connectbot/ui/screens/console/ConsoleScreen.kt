@@ -416,8 +416,8 @@ fun ConsoleScreen(
     fun handleMouseClick(row: Int, col: Int, button: Int) {
         // Send SGR mouse click: down + up sequence
         // Button 0 = left click, 2 = right click, coordinates are 1-indexed
-        val down = "\u001b[<${button};${col + 1};${row + 1}M"
-        val up = "\u001b[<${button};${col + 1};${row + 1}m"
+        val down = "\u001b[<$button;${col + 1};${row + 1}M"
+        val up = "\u001b[<$button;${col + 1};${row + 1}m"
         scope.launch(Dispatchers.IO) {
             currentBridge?.transport?.write(down.toByteArray())
             currentBridge?.transport?.write(up.toByteArray())
@@ -428,7 +428,7 @@ fun ConsoleScreen(
         // Send SGR mouse wheel encoding: CSI < button ; col ; row M
         // Button 64 = scroll up, button 65 = scroll down, coordinates are 1-indexed
         val button = if (scrollUp) 64 else 65
-        val sequence = "\u001b[<${button};${col + 1};${row + 1}M"
+        val sequence = "\u001b[<$button;${col + 1};${row + 1}M"
         scope.launch(Dispatchers.IO) {
             currentBridge?.transport?.write(sequence.toByteArray())
         }
@@ -436,7 +436,7 @@ fun ConsoleScreen(
 
     fun handleMouseDown(row: Int, col: Int, button: Int) {
         // Send SGR mouse button press: CSI < button ; col ; row M
-        val sequence = "\u001b[<${button};${col + 1};${row + 1}M"
+        val sequence = "\u001b[<$button;${col + 1};${row + 1}M"
         scope.launch(Dispatchers.IO) {
             currentBridge?.transport?.write(sequence.toByteArray())
         }
@@ -453,7 +453,7 @@ fun ConsoleScreen(
 
     fun handleMouseUp(row: Int, col: Int, button: Int) {
         // Send SGR mouse button release: CSI < button ; col ; row m (lowercase m)
-        val sequence = "\u001b[<${button};${col + 1};${row + 1}m"
+        val sequence = "\u001b[<$button;${col + 1};${row + 1}m"
         scope.launch(Dispatchers.IO) {
             currentBridge?.transport?.write(sequence.toByteArray())
         }
@@ -482,7 +482,7 @@ fun ConsoleScreen(
         snackbarHost = { SnackbarHost(snackbarHostState) },
         modifier = Modifier.fillMaxSize(),
         contentWindowInsets = if (fullscreen) {
-            WindowInsets.ime  // Only respect IME insets in fullscreen
+            WindowInsets.ime // Only respect IME insets in fullscreen
         } else {
             ScaffoldDefaults.contentWindowInsets.union(WindowInsets.imeAnimationTarget)
         }
