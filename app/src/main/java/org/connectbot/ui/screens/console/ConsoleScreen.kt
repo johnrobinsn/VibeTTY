@@ -70,6 +70,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
@@ -362,6 +363,21 @@ fun ConsoleScreen(
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
 
+    // Track screen visibility for notification routing (snackbar vs system notification)
+    val lifecycleOwner = androidx.lifecycle.compose.LocalLifecycleOwner.current
+    DisposableEffect(lifecycleOwner) {
+        val observer = androidx.lifecycle.LifecycleEventObserver { _, event ->
+            viewModel.isScreenVisible = event.targetState.isAtLeast(
+                androidx.lifecycle.Lifecycle.State.RESUMED
+            )
+        }
+        lifecycleOwner.lifecycle.addObserver(observer)
+        onDispose {
+            lifecycleOwner.lifecycle.removeObserver(observer)
+            viewModel.isScreenVisible = false
+        }
+    }
+
     // Initialize forceSize from profile when bridge changes
     LaunchedEffect(currentBridge) {
         currentBridge?.let { bridge ->
@@ -392,6 +408,13 @@ fun ConsoleScreen(
                 message = error,
                 withDismissAction = true
             )
+        }
+    }
+
+    // Show snackbar for terminal notifications (OSC 9/99/777) when app is foregrounded
+    LaunchedEffect(Unit) {
+        viewModel.toastEvents.collect { message ->
+            snackbarHostState.showSnackbar(message = message)
         }
     }
 

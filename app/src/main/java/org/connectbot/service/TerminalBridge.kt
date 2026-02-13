@@ -269,7 +269,6 @@ class TerminalBridge {
                 scope.launch {
                     _notificationEvents.emit(TerminalNotification(title, body, urgency))
                 }
-                manager.sendTerminalNotification(host, title, body)
             }
         )
 

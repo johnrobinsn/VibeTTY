@@ -55,6 +55,9 @@ class ConsoleViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(ConsoleUiState())
     val uiState: StateFlow<ConsoleUiState> = _uiState.asStateFlow()
 
+    @Volatile
+    var isScreenVisible = false
+
     private val _toastEvents = MutableSharedFlow<String>(replay = 0, extraBufferCapacity = 10)
     val toastEvents: SharedFlow<String> = _toastEvents.asSharedFlow()
 
@@ -110,14 +113,17 @@ class ConsoleViewModel @Inject constructor(
                         val currentIndex = _uiState.value.currentBridgeIndex
                         val currentBridge = _uiState.value.bridges.getOrNull(currentIndex)
 
-                        if (currentBridge == bridge) {
-                            // Bridge is visible - show a toast
+                        if (currentBridge == bridge && isScreenVisible) {
+                            // Bridge is visible and screen is in foreground - snackbar only
                             val message = notification.title?.let { "$it: ${notification.body}" }
                                 ?: notification.body
                             _toastEvents.emit(message)
+                        } else {
+                            // App backgrounded or different tab - system notification
+                            terminalManager?.sendTerminalNotification(
+                                bridge.host, notification.title, notification.body
+                            )
                         }
-                        // If not visible, TerminalBridge already called
-                        // manager.sendTerminalNotification() for system notification
                     }
                 }
             }

@@ -789,10 +789,11 @@ class TerminalManager :
 
     /**
      * Send a system notification triggered by a terminal OSC escape sequence (OSC 9/99/777).
-     * Shows notification when app is in background.
+     * Always shows a system notification (unlike bell which only notifies when unbound),
+     * since these are explicit notifications from terminal applications.
      */
     fun sendTerminalNotification(host: Host, title: String?, body: String) {
-        if (!isUiBound && prefs.getBoolean(
+        if (prefs.getBoolean(
                 PreferenceConstants.TERMINAL_NOTIFICATIONS,
                 PreferenceConstants.TERMINAL_NOTIFICATIONS_DEFAULT
             )
