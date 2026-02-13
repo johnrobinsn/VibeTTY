@@ -201,7 +201,6 @@ fun SettingsScreen(
         onUseVibeBarChange = viewModel::updateUseVibeBar,
         onVoiceInputOverlayChange = viewModel::updateVoiceInputOverlay,
         onAdbVerifyProtocolChange = viewModel::updateAdbVerifyProtocol,
-        onMouseModeChange = viewModel::updateMouseMode,
         modifier = modifier
     )
 }
@@ -255,7 +254,6 @@ fun SettingsScreenContent(
     onUseVibeBarChange: (Boolean) -> Unit,
     onVoiceInputOverlayChange: (Boolean) -> Unit,
     onAdbVerifyProtocolChange: (Boolean) -> Unit,
-    onMouseModeChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Scaffold(
@@ -534,15 +532,6 @@ fun SettingsScreenContent(
                     summary = stringResource(R.string.pref_use_vibe_bar_summary),
                     checked = uiState.useVibeBar,
                     onCheckedChange = onUseVibeBarChange
-                )
-            }
-
-            item {
-                SwitchPreference(
-                    title = stringResource(R.string.pref_mouse_mode_title),
-                    summary = stringResource(R.string.pref_mouse_mode_summary),
-                    checked = uiState.mouseMode,
-                    onCheckedChange = onMouseModeChange
                 )
             }
 
@@ -1716,8 +1705,7 @@ private fun SettingsScreenPreview() {
             onBacktickAsEscapeChange = {},
             onUseVibeBarChange = {},
             onVoiceInputOverlayChange = {},
-            onAdbVerifyProtocolChange = {},
-            onMouseModeChange = {}
+            onAdbVerifyProtocolChange = {}
         )
     }
 }

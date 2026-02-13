@@ -127,8 +127,4 @@ object PreferenceConstants {
     /* Auto-hide delay for title bar */
     const val TITLEBAR_HIDE_DELAY: String = "titlebarHideDelay"
     const val TITLEBAR_HIDE_DELAY_DEFAULT: Int = 3000 // 3 seconds in milliseconds
-
-    /* Tmux mode - enhanced mouse support for tmux (mouse down/drag/release, right-click) */
-    const val MOUSE_MODE: String = "mouseMode"
-    const val MOUSE_MODE_DEFAULT: Boolean = false
 }

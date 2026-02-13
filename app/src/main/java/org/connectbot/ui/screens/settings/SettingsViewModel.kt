@@ -87,8 +87,7 @@ data class SettingsUiState(
     val voiceInputOverlay: Boolean = false,
     val adbVerifyProtocol: Boolean = true,
     val specialKeysHideDelay: Int = 5000,
-    val titlebarHideDelay: Int = 3000,
-    val mouseMode: Boolean = false
+    val titlebarHideDelay: Int = 3000
 )
 
 @HiltViewModel
@@ -217,10 +216,6 @@ class SettingsViewModel @Inject constructor(
             titlebarHideDelay = prefs.getInt(
                 PreferenceConstants.TITLEBAR_HIDE_DELAY,
                 PreferenceConstants.TITLEBAR_HIDE_DELAY_DEFAULT
-            ),
-            mouseMode = prefs.getBoolean(
-                PreferenceConstants.MOUSE_MODE,
-                PreferenceConstants.MOUSE_MODE_DEFAULT
             )
         )
     }
@@ -419,12 +414,6 @@ class SettingsViewModel @Inject constructor(
     fun updateTitlebarHideDelay(value: Int) {
         updateIntPref(PreferenceConstants.TITLEBAR_HIDE_DELAY, value) {
             copy(titlebarHideDelay = value)
-        }
-    }
-
-    fun updateMouseMode(value: Boolean) {
-        updateBooleanPref(PreferenceConstants.MOUSE_MODE, value) {
-            copy(mouseMode = value)
         }
     }
 

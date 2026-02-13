@@ -226,12 +226,6 @@ fun ConsoleScreen(
             PreferenceConstants.FORCE_SOFT_KEYBOARD_DEFAULT
         )
     }
-    val mouseMode = remember {
-        prefs.getBoolean(
-            PreferenceConstants.MOUSE_MODE,
-            PreferenceConstants.MOUSE_MODE_DEFAULT
-        )
-    }
     // Show keyboard if no hardware keyboard connected, or if force option is enabled
     var showSoftwareKeyboard by remember { mutableStateOf(!hasHardwareKeyboard || forceSoftKeyboard) }
 
@@ -630,12 +624,12 @@ fun ConsoleScreen(
                             horizontalScrollIndicatorBottomOffset = 0.dp,
                             backtickAsEscape = backtickAsEscape,
                             enableComposingOverlay = voiceInputOverlay,
-                            // Tmux mode: pass taps, drags, and scroll as mouse events to terminal apps
-                            onMouseClick = if (mouseMode) { row, col, btn -> handleMouseClick(row, col, btn) } else null,
-                            onMouseScroll = if (mouseMode) { row, col, scrollUp -> handleMouseScroll(row, col, scrollUp) } else null,
-                            onMouseDown = if (mouseMode) { row, col, btn -> handleMouseDown(row, col, btn) } else null,
-                            onMouseDrag = if (mouseMode) { row, col, btn -> handleMouseDrag(row, col, btn) } else null,
-                            onMouseUp = if (mouseMode) { row, col, btn -> handleMouseUp(row, col, btn) } else null,
+                            // Mouse callbacks - Terminal gates these on auto-detected mouse mode from remote
+                            onMouseClick = { row, col, btn -> handleMouseClick(row, col, btn) },
+                            onMouseScroll = { row, col, scrollUp -> handleMouseScroll(row, col, scrollUp) },
+                            onMouseDown = { row, col, btn -> handleMouseDown(row, col, btn) },
+                            onMouseDrag = { row, col, btn -> handleMouseDrag(row, col, btn) },
+                            onMouseUp = { row, col, btn -> handleMouseUp(row, col, btn) },
                             onShowKeyboardPanel = { handleShowKeyboardPanel() },
                             onHideKeyboardPanel = { handleHideKeyboardPanel() },
                             onToggleKeyboard = { showSoftwareKeyboard = !showSoftwareKeyboard },
