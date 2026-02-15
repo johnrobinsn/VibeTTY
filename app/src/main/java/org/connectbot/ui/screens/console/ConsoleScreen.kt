@@ -311,7 +311,18 @@ fun ConsoleScreen(
         // Only reset showSoftwareKeyboard when IME was visible and is now hidden
         // This prevents resetting on initial load before IME has a chance to show
         if (wasImeVisible && !systemImeVisible && showSoftwareKeyboard) {
-            showSoftwareKeyboard = false
+            if (fullscreen) {
+                // In fullscreen mode, switching keyboards (e.g. to/from voice keyboard)
+                // causes IME insets to briefly disappear. Debounce to avoid killing keyboard state.
+                delay(600)
+                // Re-check: if IME is still gone after delay, it was a real dismissal
+                val stillGone = with(density) { imeInsets.getBottom(density).toDp() } <= 0.dp
+                if (stillGone) {
+                    showSoftwareKeyboard = false
+                }
+            } else {
+                showSoftwareKeyboard = false
+            }
         }
         wasImeVisible = systemImeVisible
         imeVisible = systemImeVisible
